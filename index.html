@@ -232,36 +232,6 @@
 </div>
 
 <script>
-    // --- PENDAFTARAN SERVICE WORKER (Agar Bisa Diakses Offline) ---
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            const swCode = `
-                const CACHE_NAME = 'gym-cache-v1';
-                const urlsToCache = ['./', './index.html', 'https://i.postimg.cc/BZdnXmfm/discipline.png'];
-
-                self.addEventListener('install', event => {
-                    event.waitUntil(
-                        caches.open(CACHE_NAME)
-                            .then(cache => cache.addAll(urlsToCache))
-                    );
-                });
-
-                self.addEventListener('fetch', event => {
-                    event.respondWith(
-                        caches.match(event.request)
-                            .then(response => response || fetch(event.request))
-                    );
-                });
-            `;
-            const blob = new Blob([swCode], { type: 'text/javascript' });
-            const swUrl = URL.createObjectURL(blob);
-
-            navigator.serviceWorker.register(swUrl)
-                .then(() => console.log('Service Worker Berhasil Terdaftar!'))
-                .catch(err => console.log('Gagal Mendaftarkan Service Worker: ', err));
-        });
-    }
-
     // 1. Logika Reset Otomatis Setiap Minggu
     function checkReset() {
         const lastWeek = localStorage.getItem('lastWeekReset');
@@ -283,6 +253,7 @@
     // 2. Logika Toggle & Simpan ke Browser
     function toggleItem(el, id) {
         const checkbox = el.querySelector('input[type="checkbox"]');
+        // Pastikan klik pada area baris ikut mengubah status checkbox
         if (event && event.target !== checkbox) {
             checkbox.checked = !checkbox.checked;
         }
@@ -298,7 +269,7 @@
     // 3. Muat Status Ceklis Saat Halaman Dibuka
     window.onload = () => {
         checkReset();
-        document.querySelectorAll('.exercise-item, '.weekly-item').forEach(el => {
+        document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
             const checkbox = el.querySelector('input[type="checkbox"]');
             if (checkbox) {
                 const id = checkbox.id;
@@ -328,5 +299,29 @@
         btnJumat.className = "nav-btn";
 
         if (day === 'senin') {
-        <text truncated>
-    
+            senin.style.display = 'block';
+            rabu.style.display = 'none';
+            jumat.style.display = 'none';
+            btnSenin.className = "nav-btn active-senin";
+        } else if (day === 'rabu') {
+            senin.style.display = 'none';
+            rabu.style.display = 'block';
+            jumat.style.display = 'none';
+            btnRabu.className = "nav-btn active-rabu";
+        } else if (day === 'jumat') {
+            senin.style.display = 'none';
+            rabu.style.display = 'none';
+            jumat.style.display = 'block';
+            btnJumat.className = "nav-btn active-jumat";
+        } else {
+            senin.style.display = 'block';
+            rabu.style.display = 'block';
+            jumat.style.display = 'block';
+            btnSemua.className = "nav-btn active-semua";
+        }
+    }
+</script>
+
+</body>
+                                                                                                                                                                                                                   </html>
+                                                                                                                                                                                                                   
