@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Gym</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            padding: 16px;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .weekly-summary {
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+        }
+        .weekly-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ff9800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .weekly-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #282828;
+            font-size: 0.75rem;
+            color: #b0bec5;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .weekly-item:last-child {
+            border-bottom: none;
+        }
+        .weekly-item.checked {
+            opacity: 0.4;
+            text-decoration: line-through;
+        }
+        .weekly-item input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #ff9800;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* TAMPILAN TOMBOL NAVIGASI */
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .nav-btn {
+            flex: 1;
+            padding: 10px 4px;
+            border: none;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            color: #888;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .nav-btn.active-senin {
+            background-color: #ff9800;
+            color: #121212;
+        }
+        .nav-btn.active-rabu {
+            background-color: #2196f3;
+            color: #ffffff;
+        }
+        .nav-btn.active-jumat {
+            background-color: #4caf50;
+            color: #121212;
+        }
+        .nav-btn.active-semua {
+            background-color: #e0e0e0;
+            color: #121212;
+        }
+
+        .day-section {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-left: 4px solid #ff9800;
+        }
+        .day-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ff9800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #2c2c2c;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+        .exercise-item.checked {
+            opacity: 0.4;
+            text-decoration: line-through;
+        }
+        .exercise-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .muscle {
+            font-weight: 600;
+            color: #90caf9;
+            flex: 0 0 35%;
+        }
+        .name {
+            flex: 0 0 45%;
+            color: #ffffff;
+        }
+        .reps {
+            flex: 0 0 20%;
+            text-align: right;
+            color: #a5d6a7;
+            font-weight: 500;
+        }
+        .exercise-item input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: #ff9800;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- RINGKASAN MINGGUAN -->
+    <div class="weekly-summary">
+        <div class="weekly-title">Ringkasan Mingguan</div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_senin')"><input type="checkbox" id="w_senin"><span><strong>Senin:</strong> Full Body - Fokus Utama: Dada Maksimal & Push</span></div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_selasa')"><input type="checkbox" id="w_selasa"><span><strong>Selasa:</strong> Makan Surplus Kalori & Istirahat Total</span></div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_rabu')"><input type="checkbox" id="w_rabu"><span><strong>Rabu:</strong> Full Body - Fokus Utama: Punggung Maksimal & Pull</span></div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_kamis')"><input type="checkbox" id="w_kamis"><span><strong>Kamis:</strong> Makan Surplus Kalori & Istirahat Total</span></div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_jumat')"><input type="checkbox" id="w_jumat"><span><strong>Jumat:</strong> Full Body - Fokus Utama: Kaki & Lower Body Maksimal</span></div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_sabtu')"><input type="checkbox" id="w_sabtu"><span><strong>Sabtu:</strong> Makan Surplus Kalori & Istirahat Total</span></div>
+        <div class="weekly-item" onclick="toggleItem(this, 'w_minggu')"><input type="checkbox" id="w_minggu"><span><strong>Minggu:</strong> Gym Tutup / Pemulihan Total</span></div>
+    </div>
+
+    <!-- TOMBOL NAVIGASI HARI -->
+    <div class="nav-buttons">
+        <button class="nav-btn active-semua" id="btn-semua" onclick="showDay('semua')">Semua</button>
+        <button class="nav-btn" id="btn-senin" onclick="showDay('senin')">Senin</button>
+        <button class="nav-btn" id="btn-rabu" onclick="showDay('rabu')">Rabu</button>
+        <button class="nav-btn" id="btn-jumat" onclick="showDay('jumat')">Jumat</button>
+    </div>
+
+    <!-- SENIN -->
+    <div class="day-section" id="section-senin">
+        <div class="day-title">Senin (Fokus: Dada)</div>
+        <div class="exercise-item" onclick="toggleItem(this, 's1')"><input type="checkbox" id="s1"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Dumbbell Bench Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's2')"><input type="checkbox" id="s2"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Incline Dumbbell Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's3')"><input type="checkbox" id="s3"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Machine Chest Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's4')"><input type="checkbox" id="s4"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Cable Crossover / Fly</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's5')"><input type="checkbox" id="s5"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Lat Pulldown</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's6')"><input type="checkbox" id="s6"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Seated Cable Row</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's7')"><input type="checkbox" id="s7"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Goblet Squat</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's8')"><input type="checkbox" id="s8"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Extension</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's9')"><input type="checkbox" id="s9"><div class="exercise-content"><span class="muscle">Bahu Samping</span><span class="name">Dumbbell Lateral Raise</span><span class="reps">12-15 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 's10')"><input type="checkbox" id="s10"><div class="exercise-content"><span class="muscle">Core</span><span class="name">Plank</span><span class="reps">45-60 Detik</span></div></div>
+    </div>
+
+    <!-- RABU -->
+    <div class="day-section" id="section-rabu" style="border-left-color: #2196f3;">
+        <div class="day-title" style="color: #2196f3;">Rabu (Fokus: Punggung)</div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r1')"><input type="checkbox" id="r1"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Lat Pulldown</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r2')"><input type="checkbox" id="r2"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Seated Cable Row</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r3')"><input type="checkbox" id="r3"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Single-Arm DB Row</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r4')"><input type="checkbox" id="r4"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Straight-Arm Pulldown</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r5')"><input type="checkbox" id="r5"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Dumbbell Bench Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r6')"><input type="checkbox" id="r6"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Incline Dumbbell Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r7')"><input type="checkbox" id="r7"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r8')"><input type="checkbox" id="r8"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Curl</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r9')"><input type="checkbox" id="r9"><div class="exercise-content"><span class="muscle">Bahu Belakang</span><span class="name">Face Pull</span><span class="reps">12-15 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'r10')"><input type="checkbox" id="r10"><div class="exercise-content"><span class="muscle">Core</span><span class="name">Russian Twist</span><span class="reps">12-15 Rep</span></div></div>
+    </div>
+
+    <!-- JUMAT -->
+    <div class="day-section" id="section-jumat" style="border-left-color: #4caf50;">
+        <div class="day-title" style="color: #4caf50;">Jumat (Fokus: Kaki)</div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j1')"><input type="checkbox" id="j1"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Goblet / Barbell Squat</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j2')"><input type="checkbox" id="j2"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j3')"><input type="checkbox" id="j3"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Extension</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j4')"><input type="checkbox" id="j4"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Curl</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j5')"><input type="checkbox" id="j5"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Dumbbell Bench Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j6')"><input type="checkbox" id="j6"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Machine Chest Press</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j7')"><input type="checkbox" id="j7"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Lat Pulldown</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j8')"><input type="checkbox" id="j8"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Seated Cable Row</span><span class="reps">8-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j9')"><input type="checkbox" id="j9"><div class="exercise-content"><span class="muscle">Lengan</span><span class="name">Bicep Curl & Tricep Ext</span><span class="reps">10-12 Rep</span></div></div>
+        <div class="exercise-item" onclick="toggleItem(this, 'j10')"><input type="checkbox" id="j10"><div class="exercise-content"><span class="muscle">Core</span><span class="name">Leg Raise / Knee Raise</span><span class="reps">12-15 Rep</span></div></div>
+    </div>
+
+</div>
+
+<script>
+    // 1. Logika Reset Otomatis Setiap Minggu
+    function checkReset() {
+        const lastWeek = localStorage.getItem('lastWeekReset');
+        const now = new Date();
+        const weekNumber = getWeekNumber(now);
+        
+        if (lastWeek !== weekNumber.toString()) {
+            localStorage.clear(); // Menghapus semua ceklis tersimpan saat masuk minggu baru
+            localStorage.setItem('lastWeekReset', weekNumber);
+        }
+    }
+
+    function getWeekNumber(d) {
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+        return Math.ceil((((d - new Date(Date.UTC(d.getUTCFullYear(),0,1))) / 86400000) + 1)/7);
+    }
+
+    // 2. Logika Toggle & Simpan ke Browser
+    function toggleItem(el, id) {
+        const checkbox = el.querySelector('input[type="checkbox"]');
+        // Pastikan klik pada area baris ikut mengubah status checkbox
+        if (event && event.target !== checkbox) {
+            checkbox.checked = !checkbox.checked;
+        }
+        
+        if (checkbox.checked) {
+            el.classList.add('checked');
+        } else {
+            el.classList.remove('checked');
+        }
+        localStorage.setItem(id, checkbox.checked);
+    }
+
+    // 3. Muat Status Ceklis Saat Halaman Dibuka
+    window.onload = () => {
+        checkReset();
+        document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
+            const checkbox = el.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                const id = checkbox.id;
+                const saved = localStorage.getItem(id) === 'true';
+                checkbox.checked = saved;
+                if (saved) {
+                    el.classList.add('checked');
+                }
+            }
+        });
+    };
+
+    // 4. Navigasi Antar Hari
+    function showDay(day) {
+        const senin = document.getElementById('section-senin');
+        const rabu = document.getElementById('section-rabu');
+        const jumat = document.getElementById('section-jumat');
+
+        const btnSemua = document.getElementById('btn-semua');
+        const btnSenin = document.getElementById('btn-senin');
+        const btnRabu = document.getElementById('btn-rabu');
+        const btnJumat = document.getElementById('btn-jumat');
+
+        btnSemua.className = "nav-btn";
+        btnSenin.className = "nav-btn";
+        btnRabu.className = "nav-btn";
+        btnJumat.className = "nav-btn";
+
+        if (day === 'senin') {
+            senin.style.display = 'block';
+            rabu.style.display = 'none';
+            jumat.style.display = 'none';
+            btnSenin.className = "nav-btn active-senin";
+        } else if (day === 'rabu') {
+            senin.style.display = 'none';
+            rabu.style.display = 'block';
+            jumat.style.display = 'none';
+            btnRabu.className = "nav-btn active-rabu";
+        } else if (day === 'jumat') {
+            senin.style.display = 'none';
+            rabu.style.display = 'none';
+            jumat.style.display = 'block';
+            btnJumat.className = "nav-btn active-jumat";
+        } else {
+            senin.style.display = 'block';
+            rabu.style.display = 'block';
+            jumat.style.display = 'block';
+            btnSemua.className = "nav-btn active-semua";
+        }
+    }
+</script>
+
+</body>
+</html>
