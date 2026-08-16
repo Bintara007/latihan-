@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Gym Pro</title>
+    <title>Jadwal Gym Pro - Spider-Man Liquid Glass Ultimate</title>
     <link rel="icon" type="image/png" href="https://i.postimg.cc/BZdnXmfm/discipline.png">
     <link rel="apple-touch-icon" href="https://i.postimg.cc/BZdnXmfm/discipline.png">
     <style>
@@ -597,4 +597,1520 @@
             color: #ffffff;
             border: 1.5px solid rgba(255, 255, 255, 0.7);
             padding: 6px 16px;
-            box-shadow: 0 4px 12px var(--accent-glow
+            box-shadow: 0 4px 12px var(--accent-glow), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .music-file-input {
+            display: none;
+        }
+
+        /* --- MODAL PLAYLIST INTERAKTIF --- */
+        .playlist-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .playlist-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .playlist-modal-card {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 24px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            composes: liquid-glass;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px var(--accent-glow), inset 0 2px 6px rgba(255, 255, 255, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .playlist-modal-overlay.show .playlist-modal-card {
+            transform: scale(1);
+        }
+
+        .playlist-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
+            z-index: 2;
+        }
+
+        .playlist-modal-title {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .playlist-close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .playlist-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 2;
+            padding-right: 4px;
+        }
+
+        .playlist-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .playlist-item-row:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .playlist-item-name {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            margin-right: 8px;
+        }
+
+        .playlist-item-action-icon {
+            font-size: 0.68rem;
+            color: var(--accent);
+            font-weight: 900;
+        }
+
+        /* Panel Statistik & Reset */
+        .stats-panel {
+            border-radius: 24px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            composes: liquid-glass;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.6);
+        }
+
+        .stats-panel-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 2;
+        }
+
+        .stats-panel-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.25);
+            padding-top: 10px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            z-index: 2;
+        }
+
+        .workout-live-info {
+            color: var(--blue);
+            font-family: monospace;
+            font-weight: 900;
+            font-size: 0.72rem;
+            text-shadow: 0 0 10px var(--blue-glow);
+        }
+
+        .progress-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .progress-title {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .progress-bar-container {
+            width: 150px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--blue));
+            border-radius: 10px;
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 0 14px var(--accent-glow), inset 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .action-chip {
+            background: var(--chip-bg);
+            border: 1.5px solid var(--chip-border);
+            color: var(--chip-text);
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 0.62rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            transition: all 0.25s ease;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .action-chip:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .action-chip:active {
+            transform: scale(0.92);
+        }
+
+        /* Chart Panel */
+        .chart-panel {
+            border-radius: 24px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            composes: liquid-glass;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.6);
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        .chart-title {
+            font-size: 0.68rem;
+            font-weight: 900;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        canvas#progressChart {
+            width: 100% !important;
+            height: 110px !important;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Floating Spider-Man Suit Toggle Button */
+        .suit-toggle-float {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            composes: liquid-glass;
+            border: 2px solid var(--accent);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 35px var(--accent-glow), inset 0 3px 6px rgba(255, 255, 255, 0.9);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .suit-toggle-float:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8), 0 0 45px var(--accent-glow), inset 0 3px 7px rgba(255, 255, 255, 1);
+        }
+
+        .suit-toggle-float:active {
+            transform: scale(0.9);
+        }
+
+        .suit-toggle-float svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent);
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+            transition: fill 0.3s ease;
+            z-index: 2;
+        }
+
+        /* Kartu Utama & Konten Bagian - Dibuat Simetris dan Rapi */
+        .weekly-summary, .day-section {
+            border-radius: 28px;
+            padding: 20px 18px;
+            composes: liquid-glass;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.6);
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            animation: cardSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Jarak antar item di dalam card seragam */
+        }
+
+        @keyframes cardSlideUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .weekly-summary:hover, .day-section:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px var(--accent-glow), inset 0 2px 6px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .weekly-title, .day-title {
+            font-size: 0.72rem;
+            font-weight: 900;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 4px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .day-title {
+            color: var(--accent);
+            font-size: 0.88rem;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        #section-rabu .day-title { 
+            color: var(--blue); 
+            text-shadow: 0 0 15px var(--blue-glow);
+        }
+        #section-jumat .day-title { 
+            color: var(--green); 
+            text-shadow: 0 0 15px var(--green-glow);
+        }
+
+        .weekly-item, .exercise-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 20px;
+            composes: liquid-glass;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            margin: 0; /* Dikelola oleh gap parent card untuk simetri */
+        }
+
+        .weekly-item {
+            cursor: pointer;
+        }
+
+        .weekly-item::before, .exercise-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .weekly-item:hover::before, .exercise-item:hover::before {
+            opacity: 1;
+        }
+
+        .weekly-item:hover, .exercise-item:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-glow);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 25px var(--accent-glow), inset 0 2px 5px rgba(255, 255, 255, 0.7);
+            transform: translateY(-1px);
+        }
+
+        .weekly-item.checked, .exercise-item.checked {
+            opacity: 0.45;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .weekly-item.checked .weekly-desc,
+        .exercise-item.checked .name {
+            text-decoration: line-through;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 2px;
+        }
+
+        .intensity-pulse {
+            animation: spiderSensePulse 0.4s ease-out;
+        }
+
+        @keyframes spiderSensePulse {
+            0% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.02); filter: brightness(1.6); border-color: var(--accent); box-shadow: 0 0 25px var(--accent-glow); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--text-muted);
+            border-radius: 50%;
+            margin-right: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            z-index: 2;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        input[type="checkbox"]:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.15) rotate(360deg);
+            box-shadow: 0 0 20px var(--accent-glow), inset 0 2px 4px rgba(255,255,255,0.8);
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            top: 38%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation: checkPop 0.3s ease;
+        }
+
+        @keyframes checkPop {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(0); }
+            100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+        }
+
+        /* Grid kolom presisi untuk kesimetrisan visual mutlak */
+        .exercise-content {
+            display: grid;
+            grid-template-columns: 88px 1fr 110px;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .weekly-content {
+            display: grid;
+            grid-template-columns: 88px 1fr;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .muscle {
+            background: var(--chip-bg);
+            border: 1.5px solid var(--chip-border);
+            color: var(--chip-text);
+            padding: 6px 4px;
+            border-radius: 11px;
+            font-size: 0.58rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        .name {
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 0.72rem;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.2px;
+            transition: color 0.3s ease;
+        }
+
+        .weekly-item:hover .name, .exercise-item:hover .name {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+        }
+
+        .weekly-day {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1.5px solid rgba(255, 255, 255, 0.45);
+            color: var(--text-main);
+            padding: 6px 4px;
+            border-radius: 11px;
+            font-size: 0.62rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .weekly-desc {
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.2px;
+        }
+
+        .reps {
+            background: var(--chip-bg);
+            border: 1.5px solid var(--chip-border);
+            color: var(--chip-text);
+            padding: 6px 4px;
+            border-radius: 11px;
+            text-align: center;
+            font-weight: 900;
+            font-size: 0.6rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reps:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+    </style>
+</head>
+<body class="theme-merah">
+
+<div class="top-container">
+    <div class="nav-buttons">
+        <button class="nav-btn active-semua" id="btn-semua" onclick="showDay('semua')">Semua</button>
+        <button class="nav-btn" id="btn-senin" onclick="showDay('senin')">Senin</button>
+        <button class="nav-btn" id="btn-rabu" onclick="showDay('rabu')">Rabu</button>
+        <button class="nav-btn" id="btn-jumat" onclick="showDay('jumat')">Jumat</button>
+    </div>
+    
+    <div class="rest-timer-bar" id="restTimerBar">
+        <div class="rest-timer-left">
+            <div class="rest-timer-info" id="timerInfo">REST</div>
+            <div class="rest-timer-countdown" id="timerCountdown">03:00</div>
+        </div>
+        <div class="timer-controls-group">
+            <button class="timer-ctrl-btn" onclick="adjustTimer(-30)" title="Kurang 30 Detik">-</button>
+            <button class="timer-ctrl-btn" onclick="adjustTimer(30)" title="Tambah 30 Detik">+</button>
+            <button class="rest-timer-btn" onclick="stopRestTimer()">Lewati</button>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Toggle Tema Suit Spider-Man -->
+<div class="suit-toggle-float" id="suitToggleBtn" onclick="cycleTheme()" title="Ganti Tema Suit Spider-Man">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm0 384c-88.2 0-160-71.8-160-160S167.8 96 256 96s160 71.8 160 160-71.8 160-160 160zm-32-256c-35.3 0-64 28.7-64 64 0 25.4 14.8 47.3 36.2 57.8L160 352l32 16 32-64h64l32 64 32-16-36.2-34.2C329.2 303.3 344 281.4 344 256c0-35.3-28.7-64-64-64h-24z"/>
+    </svg>
+</div>
+
+<div class="container">
+
+    <!-- PANEL MEDIA PLAYER MUSIK ESTETIK -->
+    <div class="music-panel" id="musicPanel">
+        <div class="music-main-row">
+            <div class="music-track-info">
+                <div class="music-vinyl-icon" id="musicVinyl">💿</div>
+                <div class="music-text-container">
+                    <span class="music-title-display" id="musicTitleDisplay">Belum Ada Audio</span>
+                    <span class="music-subtitle-status" id="musicSubtitleStatus">Siap Diputar</span>
+                </div>
+            </div>
+            <div class="music-visualizer" id="musicVisualizer">
+                <div class="music-bar"></div>
+                <div class="music-bar"></div>
+                <div class="music-bar"></div>
+            </div>
+        </div>
+
+        <div class="music-progress-container">
+            <span class="music-time-label" id="musicCurrentTime">00:00</span>
+            <input type="range" class="music-slider" id="musicProgressBar" value="0" min="0" max="100" step="0.1" oninput="seekMusic(this.value)">
+            <span class="music-time-label" id="musicDuration">00:00</span>
+        </div>
+
+        <div class="music-controls-row">
+            <div class="music-btn-group">
+                <button class="music-btn music-btn-primary" id="musicPlayBtn" onclick="togglePlayMusic()" disabled>Play</button>
+                <button class="music-btn" onclick="document.getElementById('bgmFileInput').click()">Upload</button>
+                <button class="music-btn" id="musicListBtn" onclick="openSavedAudioList()" style="display:none;" title="Daftar Audio Tersimpan">Playlist</button>
+            </div>
+            <div class="music-btn-group">
+                <button class="music-btn" id="musicDeleteBtn" onclick="deleteMusicFile()" style="display:none;" title="Hapus Audio Aktif">Hapus</button>
+            </div>
+        </div>
+
+        <input type="file" id="bgmFileInput" class="music-file-input" accept="audio/*" onchange="handleMusicUpload(event)">
+        <audio id="bgmAudioElement" loop></audio>
+    </div>
+
+    <!-- MODAL PLAYLIST INTERAKTIF -->
+    <div class="playlist-modal-overlay" id="playlistModalOverlay" onclick="closePlaylistModal(event)">
+        <div class="playlist-modal-card" onclick="event.stopPropagation()">
+            <div class="playlist-modal-header">
+                <span class="playlist-modal-title">🎧 Playlist Tersimpan</span>
+                <button class="playlist-close-btn" onclick="closePlaylistModal()">×</button>
+            </div>
+            <div class="playlist-items-container" id="playlistItemsContainer">
+                <!-- Daftar lagu akan dimasukkan secara dinamis via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-panel" id="section-stats">
+        <div class="stats-panel-top">
+            <div class="progress-info">
+                <span class="progress-title" id="progressText">Selesai: 0%</span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+            </div>
+            <div class="panel-actions">
+                <button class="action-chip" onclick="resetAllProgress()" title="Reset Centang">Reset</button>
+            </div>
+        </div>
+        <div class="stats-panel-bottom">
+            <span>⏱️ Durasi: <strong class="workout-live-info" id="workoutDuration">00:00:00</strong></span>
+            <span>🔥 Kalori: <strong class="workout-live-info" id="workoutCalories">0 kcal</strong></span>
+        </div>
+    </div>
+
+    <!-- Panel Grafik Progres Latihan Bulanan -->
+    <div class="chart-panel" id="section-chart">
+        <div class="chart-header">
+            <span class="chart-title">📊 Grafik Progres Minggu Bulanan (%)</span>
+            <span style="font-size: 0.58rem; color: var(--text-muted);" id="chartSubtitle">Bulan Ini</span>
+        </div>
+        <canvas id="progressChart"></canvas>
+    </div>
+
+    <div class="weekly-summary" id="section-weekly">
+        <div class="weekly-title">Ringkasan Mingguan</div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_senin')"><input type="checkbox" id="w_senin"><div class="weekly-content"><span class="weekly-day">Senin</span><span class="weekly-desc">Upper Body</span></div></div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_selasa')"><input type="checkbox" id="w_selasa"><div class="weekly-content"><span class="weekly-day">Selasa</span><span class="weekly-desc">Rest</span></div></div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_rabu')"><input type="checkbox" id="w_rabu"><div class="weekly-content"><span class="weekly-day">Rabu</span><span class="weekly-desc">Lower Body & Core</span></div></div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_kamis')"><input type="checkbox" id="w_kamis"><div class="weekly-content"><span class="weekly-day">Kamis</span><span class="weekly-desc">Rest</span></div></div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_jumat')"><input type="checkbox" id="w_jumat"><div class="weekly-content"><span class="weekly-day">Jumat</span><span class="weekly-desc">Upper Body</span></div></div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_sabtu')"><input type="checkbox" id="w_sabtu"><div class="weekly-content"><span class="weekly-day">Sabtu</span><span class="weekly-desc">Rest</span></div></div>
+        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_minggu')"><input type="checkbox" id="w_minggu"><div class="weekly-content"><span class="weekly-day">Minggu</span><span class="weekly-desc">Off</span></div></div>
+    </div>
+
+    <div class="day-section" id="section-senin">
+        <div class="day-title">Senin</div>
+        <div class="exercise-item"><input type="checkbox" id="s1" onclick="toggleItem(event, this, 's1', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Bench Press</span><span class="reps" id="rep_s1" onclick="editReps(event, 'rep_s1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s2" onclick="toggleItem(event, this, 's2', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Incline DB Press</span><span class="reps" id="rep_s2" onclick="editReps(event, 'rep_s2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s3" onclick="toggleItem(event, this, 's3', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Decline Press</span><span class="reps" id="rep_s3" onclick="editReps(event, 'rep_s3')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s4" onclick="toggleItem(event, this, 's4', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Dumbbell Fly</span><span class="reps" id="rep_s4" onclick="editReps(event, 'rep_s4')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s5" onclick="toggleItem(event, this, 's5', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Lat Pulldown</span><span class="reps" id="rep_s5" onclick="editReps(event, 'rep_s5')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s6" onclick="toggleItem(event, this, 's6', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Seated Cable Row</span><span class="reps" id="rep_s6" onclick="editReps(event, 'rep_s6')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s7" onclick="toggleItem(event, this, 's7', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">T-Bar / Row</span><span class="reps" id="rep_s7" onclick="editReps(event, 'rep_s7')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s8" onclick="toggleItem(event, this, 's8', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Side Delts</span><span class="name">Lateral Raise</span><span class="reps" id="rep_s8" onclick="editReps(event, 'rep_s8')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="s9" onclick="toggleItem(event, this, 's9', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Triceps</span><span class="name">Tricep Pushdown</span><span class="reps" id="rep_s9" onclick="editReps(event, 'rep_s9')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+    </div>
+
+    <div class="day-section" id="section-rabu">
+        <div class="day-title">Rabu</div>
+        <div class="exercise-item"><input type="checkbox" id="r1" onclick="toggleItem(event, this, 'r1', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Quads</span><span class="name">Squat / Press</span><span class="reps" id="rep_r1" onclick="editReps(event, 'rep_r1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r2" onclick="toggleItem(event, this, 'r2', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Hamstrings</span><span class="name">Romanian Deadlift</span><span class="reps" id="rep_r2" onclick="editReps(event, 'rep_r2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r3" onclick="toggleItem(event, this, 'r3', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Quads</span><span class="name">Leg Extension</span><span class="reps" id="rep_r3" onclick="editReps(event, 'rep_r3')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r4" onclick="toggleItem(event, this, 'r4', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Hamstrings</span><span class="name">Leg Curl</span><span class="reps" id="rep_r4" onclick="editReps(event, 'rep_r4')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r5" onclick="toggleItem(event, this, 'r5', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Calves</span><span class="name">Calf Raise</span><span class="reps" id="rep_r5" onclick="editReps(event, 'rep_r5')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r6" onclick="toggleItem(event, this, 'r6', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Lower Core</span><span class="name">Hanging Leg Raise</span><span class="reps" id="rep_r6" onclick="editReps(event, 'rep_r6')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r7" onclick="toggleItem(event, this, 'r7', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Mid Core</span><span class="name">Cable Crunch</span><span class="reps" id="rep_r7" onclick="editReps(event, 'rep_r7')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r8" onclick="toggleItem(event, this, 'r8', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Obliques</span><span class="name">Russian Twist</span><span class="reps" id="rep_r8" onclick="editReps(event, 'rep_r8')" title="Klik ganti target reps">2 Set x 15-20 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="r9" onclick="toggleItem(event, this, 'r9', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Stability</span><span class="name">Plank</span><span class="reps" id="rep_r9" onclick="editReps(event, 'rep_r9')" title="Klik ganti target reps">2 Set x 45-60 Det</span></div></div>
+    </div>
+
+    <div class="day-section" id="section-jumat">
+        <div class="day-title">Jumat</div>
+        <div class="exercise-item"><input type="checkbox" id="j1" onclick="toggleItem(event, this, 'j1', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Barbell Row / Pull</span><span class="reps" id="rep_j1" onclick="editReps(event, 'rep_j1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j2" onclick="toggleItem(event, this, 'j2', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Single-Arm Row</span><span class="reps" id="rep_j2" onclick="editReps(event, 'rep_j2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j3" onclick="toggleItem(event, this, 'j3', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Close-Grip Pulldown</span><span class="reps" id="rep_j3" onclick="editReps(event, 'rep_j3')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j4" onclick="toggleItem(event, this, 'j4', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Bent-Over Row</span><span class="reps" id="rep_j4" onclick="editReps(event, 'rep_j4')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j5" onclick="toggleItem(event, this, 'j5', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Flat DB Press</span><span class="reps" id="rep_j5" onclick="editReps(event, 'rep_j5')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j6" onclick="toggleItem(event, this, 'j6', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Incline BB Press</span><span class="reps" id="rep_j6" onclick="editReps(event, 'rep_j6')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j7" onclick="toggleItem(event, this, 'j7', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Cable Crossover</span><span class="reps" id="rep_j7" onclick="editReps(event, 'rep_j7')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j8" onclick="toggleItem(event, this, 'j8', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Front Delts</span><span class="name">Overhead Press</span><span class="reps" id="rep_j8" onclick="editReps(event, 'rep_j8')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j9" onclick="toggleItem(event, this, 'j9', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Rear Delts</span><span class="name">Face Pull</span><span class="reps" id="rep_j9" onclick="editReps(event, 'rep_j9')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div></div>
+        <div class="exercise-item"><input type="checkbox" id="j10" onclick="toggleItem(event, this, 'j10', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Biceps</span><span class="name">Barbell / EZ Curl</span><span class="reps" id="rep_j10" onclick="editReps(event, 'rep_j10')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+    </div>
+
+</div>
+
+<script>
+    const themes = ['theme-merah', 'theme-biru', 'theme-hitam', 'theme-merah-biru', 'theme-full-hitam'];
+    let currentThemeIndex = 0;
+
+    let timerInterval = null;
+    let remainingTime = 0;
+    let audioCtx = null;
+
+    let workoutStartTime = null;
+    let workoutTimerInterval = null;
+    let isWorkoutActive = false;
+
+    // --- INISIALISASI INDEXEDDB UNTUK AUDIO ---
+    const DB_NAME = 'GymProAudioDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'audios';
+    let db = null;
+
+    function initDB() {
+        return new Promise((resolve, reject) => {
+            if (db) {
+                resolve(db);
+                return;
+            }
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            request.onerror = (event) => {
+                console.error("IndexedDB error:", event.target.error);
+                reject(event.target.error);
+            };
+            request.onsuccess = (event) => {
+                db = event.target.result;
+                resolve(db);
+            };
+            request.onupgradeneeded = (event) => {
+                const database = event.target.result;
+                if (!database.objectStoreNames.contains(STORE_NAME)) {
+                    database.createObjectStore(STORE_NAME, { keyPath: 'name' });
+                }
+            };
+        });
+    }
+
+    function saveAudioToDB(name, blobOrFile) {
+        return initDB().then((database) => {
+            return new Promise((resolve, reject) => {
+                const transaction = database.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.put({ name: name, file: blobOrFile });
+                request.onsuccess = () => resolve();
+                request.onerror = (e) => reject(e.target.error);
+            });
+        });
+    }
+
+    function getAudioFromDB(name) {
+        return initDB().then((database) => {
+            return new Promise((resolve, reject) => {
+                const transaction = database.transaction(STORE_NAME, 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(name);
+                request.onsuccess = () => resolve(request.result ? request.result.file : null);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        });
+    }
+
+    function deleteAudioFromDB(name) {
+        return initDB().then((database) => {
+            return new Promise((resolve, reject) => {
+                const transaction = database.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(name);
+                request.onsuccess = () => resolve();
+                request.onerror = (e) => reject(e.target.error);
+            });
+        });
+    }
+
+    function getAllAudioKeysFromDB() {
+        return initDB().then((database) => {
+            return new Promise((resolve, reject) => {
+                const transaction = database.transaction(STORE_NAME, 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAllKeys();
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = (e) => reject(e.target.error);
+            });
+        });
+    }
+
+    function playBeep(type) {
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08);
+                gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } else if (type === 'alarm') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
+                gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.35);
+            }
+        } catch (e) {}
+    }
+
+    // --- LOGIKA MEDIA PLAYER MUSIK DENGAN INDEXEDDB ---
+    const audioEl = document.getElementById('bgmAudioElement');
+    
+    audioEl.addEventListener('timeupdate', () => {
+        if (!isNaN(audioEl.duration)) {
+            const progressPercent = (audioEl.currentTime / audioEl.duration) * 100;
+            document.getElementById('musicProgressBar').value = progressPercent;
+            document.getElementById('musicCurrentTime').textContent = formatAudioTime(audioEl.currentTime);
+            document.getElementById('musicDuration').textContent = formatAudioTime(audioEl.duration);
+        }
+    });
+
+    audioEl.addEventListener('ended', () => {
+        document.getElementById('musicPlayBtn').textContent = 'Play';
+        document.getElementById('musicSubtitleStatus').textContent = 'Selesai Diputar';
+        document.getElementById('musicVinyl').classList.remove('spinning');
+        document.getElementById('musicPanel').classList.remove('playing');
+    });
+
+    function formatAudioTime(seconds) {
+        let mins = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function seekMusic(val) {
+        if (!isNaN(audioEl.duration)) {
+            audioEl.currentTime = (val / 100) * audioEl.duration;
+        }
+    }
+
+    function handleMusicUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        saveAudioToDB(file.name, file).then(() => {
+            localStorage.setItem('savedBgmName', file.name);
+            applyAudioSource(file, file.name);
+            updateSavedAudioListButton();
+            playBeep('click');
+        }).catch(err => {
+            alert("Gagal menyimpan file audio ke IndexedDB.");
+        });
+    }
+
+    function applyAudioSource(blobOrFile, fileName) {
+        if (audioEl.src && audioEl.src.startsWith('blob:')) {
+            URL.revokeObjectURL(audioEl.src);
+        }
+        const fileURL = URL.createObjectURL(blobOrFile);
+        audioEl.src = fileURL;
+        document.getElementById('musicTitleDisplay').textContent = fileName;
+        document.getElementById('musicSubtitleStatus').textContent = 'Siap Diputar';
+        document.getElementById('musicPlayBtn').disabled = false;
+        document.getElementById('musicPlayBtn').textContent = 'Play';
+        document.getElementById('musicDeleteBtn').style.display = 'inline-block';
+        updateSavedAudioListButton();
+    }
+
+    function updateSavedAudioListButton() {
+        getAllAudioKeysFromDB().then(keys => {
+            const listBtn = document.getElementById('musicListBtn');
+            if (keys.length > 0) {
+                listBtn.style.display = 'inline-block';
+            } else {
+                listBtn.style.display = 'none';
+            }
+        });
+    }
+
+    function openSavedAudioList() {
+        getAllAudioKeysFromDB().then(keys => {
+            if (keys.length === 0) {
+                alert("Belum ada audio lain di playlist tersimpan.");
+                return;
+            }
+
+            const container = document.getElementById('playlistItemsContainer');
+            container.innerHTML = '';
+
+            keys.forEach(name => {
+                const row = document.createElement('div');
+                row.className = 'playlist-item-row';
+                row.onclick = () => {
+                    getAudioFromDB(name).then(blob => {
+                        if (blob) {
+                            localStorage.setItem('savedBgmName', name);
+                            applyAudioSource(blob, name);
+                            togglePlayMusic();
+                            closePlaylistModal();
+                            playBeep('click');
+                        }
+                    });
+                };
+
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'playlist-item-name';
+                titleSpan.textContent = name;
+
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'playlist-item-action-icon';
+                iconSpan.textContent = '▶ Putar';
+
+                row.appendChild(titleSpan);
+                row.appendChild(iconSpan);
+                container.appendChild(row);
+            });
+
+            document.getElementById('playlistModalOverlay').classList.add('show');
+            playBeep('click');
+        });
+    }
+
+    function closePlaylistModal(event) {
+        if (!event || event.target.id === 'playlistModalOverlay' || event.target.className === 'playlist-close-btn') {
+            document.getElementById('playlistModalOverlay').classList.remove('show');
+            playBeep('click');
+        }
+    }
+
+    function togglePlayMusic() {
+        const playBtn = document.getElementById('musicPlayBtn');
+        const vinyl = document.getElementById('musicVinyl');
+        const panel = document.getElementById('musicPanel');
+        const status = document.getElementById('musicSubtitleStatus');
+
+        if (audioEl.paused) {
+            audioEl.play().then(() => {
+                playBtn.textContent = 'Pause';
+                status.textContent = 'Sedang Diputar...';
+                vinyl.classList.add('spinning');
+                panel.classList.add('playing');
+                playBeep('click');
+            }).catch(err => {
+                alert("Gagal memutar audio. Pilih file yang valid.");
+            });
+        } else {
+            audioEl.pause();
+            playBtn.textContent = 'Play';
+            status.textContent = 'Dijeda';
+            vinyl.classList.remove('spinning');
+            panel.classList.remove('playing');
+            playBeep('click');
+        }
+    }
+
+    function deleteMusicFile() {
+        let currentName = localStorage.getItem('savedBgmName');
+        if (confirm(`Hapus audio "${currentName || 'aktif'}" dari memori?`)) {
+            audioEl.pause();
+            if (audioEl.src && audioEl.src.startsWith('blob:')) {
+                URL.revokeObjectURL(audioEl.src);
+            }
+            audioEl.src = '';
+
+            if (currentName) {
+                deleteAudioFromDB(currentName).then(() => {
+                    localStorage.removeItem('savedBgmName');
+                });
+            }
+
+            document.getElementById('musicTitleDisplay').textContent = 'Belum Ada Audio';
+            document.getElementById('musicSubtitleStatus').textContent = 'Siap Diputar';
+            document.getElementById('musicCurrentTime').textContent = '00:00';
+            document.getElementById('musicDuration').textContent = '00:00';
+            document.getElementById('musicProgressBar').value = 0;
+
+            const playBtn = document.getElementById('musicPlayBtn');
+            playBtn.textContent = 'Play';
+            playBtn.disabled = true;
+            document.getElementById('musicDeleteBtn').style.display = 'none';
+            document.getElementById('bgmFileInput').value = '';
+            document.getElementById('musicVinyl').classList.remove('spinning');
+            document.getElementById('musicPanel').classList.remove('playing');
+            
+            updateSavedAudioListButton();
+            playBeep('click');
+            if (navigator.vibrate) navigator.vibrate(40);
+        }
+    }
+
+    function cycleTheme() {
+        themes.forEach(t => document.body.classList.remove(t));
+        
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        const newTheme = themes[currentThemeIndex];
+        
+        document.body.classList.add(newTheme);
+        localStorage.setItem('spiderSuitTheme', newTheme);
+        
+        playBeep('click');
+        if (navigator.vibrate) navigator.vibrate(30);
+        drawProgressChart();
+    }
+
+    function editReps(event, repId) {
+        event.stopPropagation();
+        const repEl = document.getElementById(repId);
+        const currentText = repEl.textContent;
+        const newText = prompt("Ubah target set & repetisi:", currentText);
+        if (newText !== null && newText.trim() !== "") {
+            repEl.textContent = newText.trim();
+            localStorage.setItem(repId, newText.trim());
+            playBeep('click');
+        }
+    }
+
+    function startWorkoutTimer() {
+        if (!isWorkoutActive) {
+            isWorkoutActive = true;
+            workoutStartTime = Date.now() - (parseInt(localStorage.getItem('workoutElapsedTime') || 0));
+            workoutTimerInterval = setInterval(updateWorkoutClock, 1000);
+        }
+    }
+
+    function updateWorkoutClock() {
+        const elapsedTime = Date.now() - workoutStartTime;
+        localStorage.setItem('workoutElapsedTime', elapsedTime);
+        
+        const totalSeconds = Math.floor(elapsedTime / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        document.getElementById('workoutDuration').textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        const estimatedCalories = Math.floor((totalSeconds / 60) * 7.5);
+        document.getElementById('workoutCalories').textContent = `${estimatedCalories} kcal`;
+    }
+
+    function pauseWorkoutTimer() {
+        clearInterval(workoutTimerInterval);
+        isWorkoutActive = false;
+    }
+
+    function startRestTimer(durationInSeconds, titleText) {
+        clearInterval(timerInterval);
+        const bar = document.getElementById('restTimerBar');
+        const countdownEl = document.getElementById('timerCountdown');
+        const infoEl = document.getElementById('timerInfo');
+        
+        infoEl.textContent = titleText;
+        bar.classList.add('show');
+
+        remainingTime = durationInSeconds;
+
+        function updateDisplay() {
+            let minutes = Math.floor(remainingTime / 60);
+            let seconds = remainingTime % 60;
+            countdownEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        updateDisplay();
+
+        timerInterval = setInterval(() => {
+            remainingTime--;
+            if (remainingTime < 0) {
+                stopRestTimer();
+                playBeep('alarm');
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+            } else {
+                updateDisplay();
+            }
+        }, 1000);
+    }
+
+    function adjustTimer(seconds) {
+        remainingTime += seconds;
+        if (remainingTime < 0) remainingTime = 0;
+        let minutes = Math.floor(remainingTime / 60);
+        let secs = remainingTime % 60;
+        document.getElementById('timerCountdown').textContent = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        playBeep('click');
+    }
+
+    function stopRestTimer() {
+        clearInterval(timerInterval);
+        document.getElementById('restTimerBar').classList.remove('show');
+    }
+
+    function updateProgress() {
+        const checkboxes = document.querySelectorAll('.exercise-item input[type="checkbox"]');
+        let total = checkboxes.length;
+        let checkedCount = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) checkedCount++;
+        });
+
+        let percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
+        document.getElementById('progressText').textContent = `Selesai: ${percent}% (${checkedCount}/${total})`;
+        document.getElementById('progressBarFill').style.width = `${percent}%`;
+
+        saveMonthlyWeekProgressToHistory(percent);
+        drawProgressChart();
+
+        if (checkedCount > 0 && !isWorkoutActive) {
+            startWorkoutTimer();
+        } else if (checkedCount === 0) {
+            pauseWorkoutTimer();
+            localStorage.removeItem('workoutElapsedTime');
+            document.getElementById('workoutDuration').textContent = "00:00:00";
+            document.getElementById('workoutCalories').textContent = "0 kcal";
+        }
+    }
+
+    function getMonthlyWeekKey() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        const date = now.getDate();
+        
+        let weekOfMonth = Math.ceil(date / 7);
+        if (weekOfMonth > 4) weekOfMonth = 4;
+
+        return `${year}-${String(month + 1).padStart(2, '0')}-M${weekOfMonth}`;
+    }
+
+    function saveMonthlyWeekProgressToHistory(percent) {
+        const currentKey = getMonthlyWeekKey();
+        let history = JSON.parse(localStorage.getItem('monthlyWorkoutHistory') || '{}');
+        history[currentKey] = percent;
+        localStorage.setItem('monthlyWorkoutHistory', JSON.stringify(history));
+    }
+
+    function drawProgressChart() {
+        const canvas = document.getElementById('progressChart');
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+        
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+
+        ctx.clearRect(0, 0, rect.width, rect.height);
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        let history = JSON.parse(localStorage.getItem('monthlyWorkoutHistory') || '{}');
+
+        let labels = ['M1', 'M2', 'M3', 'M4'];
+        let dataPoints = [];
+
+        for (let w = 1; w <= 4; w++) {
+            let key = `${year}-${String(month + 1).padStart(2, '0')}-M${w}`;
+            dataPoints.push(history[key] !== undefined ? history[key] : 0);
+        }
+
+        const computedStyles = getComputedStyle(document.body);
+        const accentColor = computedStyles.getPropertyValue('--accent').trim() || '#ef4444';
+        const textColor = computedStyles.getPropertyValue('--text-muted').trim() || '#cbd5e1';
+
+        const paddingX = 25;
+        const paddingY = 20;
+        const chartWidth = rect.width - paddingX * 2;
+        const chartHeight = rect.height - paddingY * 2 - 10;
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 1;
+        [0, 0.5, 1].forEach(ratio => {
+            let y = paddingY + chartHeight * (1 - ratio);
+            ctx.beginPath();
+            ctx.moveTo(paddingX, y);
+            ctx.lineTo(rect.width - paddingX, y);
+            ctx.stroke();
+        });
+
+        let points = [];
+        dataPoints.forEach((val, index) => {
+            let x = paddingX + (chartWidth / (dataPoints.length - 1)) * index;
+            let y = paddingY + chartHeight * (1 - (val / 100));
+            points.push({ x, y, val });
+        });
+
+        if (points.length > 1) {
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, paddingY + chartHeight);
+            points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.lineTo(points[points.length - 1].x, paddingY + chartHeight);
+            ctx.closePath();
+
+            let gradient = ctx.createLinearGradient(0, paddingY, 0, paddingY + chartHeight);
+            gradient.addColorStop(0, accentColor + '60');
+            gradient.addColorStop(1, accentColor + '00');
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 0; i < points.length - 1; i++) {
+                let xc = (points[i].x + points[i + 1].x) / 2;
+                let yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            ctx.quadraticCurveTo(
+                points[points.length - 2].x, 
+                points[points.length - 2].y, 
+                points[points.length - 1].x, 
+                points[points.length - 1].y
+            );
+            ctx.strokeStyle = accentColor;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        ctx.font = '9px sans-serif';
+        ctx.textAlign = 'center';
+        points.forEach((p, index) => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#020205';
+            ctx.fill();
+            ctx.strokeStyle = accentColor;
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(`${p.val}%`, p.x, p.y - 8);
+
+            ctx.fillStyle = textColor;
+            ctx.fillText(labels[index], p.x, rect.height - 4);
+        });
+    }
+
+    function resetAllProgress() {
+        if (confirm("Yakin ingin mereset semua centang latihan sesi ini?")) {
+            document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
+                const checkbox = el.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    checkbox.checked = false;
+                    localStorage.removeItem(checkbox.id);
+                    el.classList.remove('checked');
+                    el.classList.remove('intensity-pulse');
+                }
+            });
+            pauseWorkoutTimer();
+            localStorage.removeItem('workoutElapsedTime');
+            document.getElementById('workoutDuration').textContent = "00:00:00";
+            document.getElementById('workoutCalories').textContent = "0 kcal";
+            updateProgress();
+            stopRestTimer();
+            playBeep('click');
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
+    }
+
+    function checkReset() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const startOfYear = new Date(year, 0, 1);
+        const days = Math.floor((now - startOfYear) / (24 * 60 * 60 * 1000));
+        const currentWeek = Math.ceil((days + startOfYear.getDay() + 1) / 7);
+        const currentYearWeek = `${year}-W${currentWeek}`;
+        const lastWeek = localStorage.getItem('lastWeekReset');
+        
+        if (lastWeek !== currentYearWeek) {
+            document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
+                const checkbox = el.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    localStorage.removeItem(checkbox.id);
+                }
+            });
+            localStorage.setItem('lastWeekReset', currentYearWeek);
+        }
+    }
+
+    function toggleWeeklyItem(event, el, id) {
+        const checkbox = el.querySelector('input[type="checkbox"]');
+        if (event.target !== checkbox) {
+            checkbox.checked = !checkbox.checked;
+        }
+        if (checkbox.checked) {
+            el.classList.add('checked');
+            if (navigator.vibrate) navigator.vibrate(50);
+        } else {
+            el.classList.remove('checked');
+        }
+        localStorage.setItem(id, checkbox.checked);
+        playBeep('click');
+        updateProgress();
+    }
+
+    function focusCheckbox(contentEl) {
+        const itemEl = contentEl.closest('.exercise-item');
+        const checkbox = itemEl.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change'));
+        
+        const id = checkbox.id;
+        const muscleType = (id.startsWith('s') && ['s1','s2','s3','s5','s6','s7'].includes(id)) || 
+                           (id.startsWith('r') && ['r1','r2'].includes(id)) || 
+                           (id.startsWith('j') && ['j1','j2','j3','j4','j5','j6'].includes(id)) ? 'besar' : 'kecil';
+        
+        handleCheckboxState(itemEl, checkbox, muscleType, id);
+    }
+
+    function toggleItem(event, checkbox, id, muscleType) {
+        event.stopPropagation();
+        const itemEl = checkbox.closest('.exercise-item');
+        handleCheckboxState(itemEl, checkbox, muscleType, id);
+    }
+
+    function handleCheckboxState(itemEl, checkbox, muscleType, id) {
+        if (checkbox.checked) {
+            itemEl.classList.add('checked');
+            itemEl.classList.remove('intensity-pulse');
+            void itemEl.offsetWidth;
+            itemEl.classList.add('intensity-pulse');
+
+            playBeep('click');
+            if (navigator.vibrate) navigator.vibrate(60);
+            
+            if (muscleType === 'besar') {
+                startRestTimer(240, 'REST BIG MUSCLE');
+            } else {
+                startRestTimer(120, 'REST SMALL MUSCLE');
+            }
+        } else {
+            itemEl.classList.remove('checked');
+            itemEl.classList.remove('intensity-pulse');
+            stopRestTimer();
+            playBeep('click');
+        }
+        localStorage.setItem(id, checkbox.checked);
+        updateProgress();
+    }
+
+    window.onload = () => {
+        checkReset();
+        
+        const savedTheme = localStorage.getItem('spiderSuitTheme');
+        if (savedTheme && themes.includes(savedTheme)) {
+            themes.forEach(t => document.body.classList.remove(t));
+            document.body.classList.add(savedTheme);
+            currentThemeIndex = themes.indexOf(savedTheme);
+        }
+
+        // Inisialisasi IndexedDB dan muat audio terakhir yang diputar
+        initDB().then(() => {
+            const savedBgmName = localStorage.getItem('savedBgmName');
+            if (savedBgmName) {
+                getAudioFromDB(savedBgmName).then(blob => {
+                    if (blob) {
+                        applyAudioSource(blob, savedBgmName);
+                    }
+                });
+            }
+            updateSavedAudioListButton();
+        });
+
+        document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
+            const checkbox = el.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                const id = checkbox.id;
+                const saved = localStorage.getItem(id) === 'true';
+                checkbox.checked = saved;
+                if (saved) {
+                    el.classList.add('checked');
+                } else {
+                    el.classList.remove('checked');
+                }
+            }
+        });
+
+        document.querySelectorAll('.reps').forEach(repEl => {
+            const savedRep = localStorage.getItem(repEl.id);
+            if (savedRep !== null) {
+                repEl.textContent = savedRep;
+            }
+        });
+
+        const savedElapsedTime = localStorage.getItem('workoutElapsedTime');
+        if (savedElapsedTime && parseInt(savedElapsedTime) > 0) {
+            const totalSeconds = Math.floor(parseInt(savedElapsedTime) / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            document.getElementById('workoutDuration').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            const estimatedCalories = Math.floor((totalSeconds / 60) * 7.5);
+            document.getElementById('workoutCalories').textContent = `${estimatedCalories} kcal`;
+            
+            const checkboxes = document.querySelectorAll('.exercise-item input[type="checkbox"]');
+            let hasChecked = Array.from(checkboxes).some(cb => cb.checked);
+            if (hasChecked) {
+                startWorkoutTimer();
+            }
+        }
+
+        updateProgress();
+        drawProgressChart();
+    };
+
+    window.onresize = () => {
+        drawProgressChart();
+    };
+
+    function showDay(day) {
+        const weekly = document.getElementById('section-weekly');
+        const statsPanel = document.getElementById('section-stats');
+        const chartPanel = document.getElementById('section-chart');
+        const senin = document.getElementById('section-senin');
+        const rabu = document.getElementById('section-rabu');
+        const jumat = document.getElementById('section-jumat');
+
+        const btnSemua = document.getElementById('btn-semua');
+        const btnSenin = document.getElementById('btn-senin');
+        const btnRabu = document.getElementById('btn-rabu');
+        const btnJumat = document.getElementById('btn-jumat');
+
+        btnSemua.className = "nav-btn";
+        btnSenin.className = "nav-btn";
+        btnRabu.className = "nav-btn";
+        btnJumat.className = "nav-btn";
+
+        [weekly, statsPanel, chartPanel, senin, rabu, jumat].forEach(sec => {
+            sec.style.animation = 'none';
+            sec.offsetHeight;
+            sec.style.animation = 'cardSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        });
+
+        if (day === 'senin') {
+            weekly.style.display = 'none';
+            statsPanel.style.display = 'flex';
+            chartPanel.style.display = 'none';
+            senin.style.display = 'block';
+            rabu.style.display = 'none';
+            jumat.style.display = 'none';
+            btnSenin.className = "nav-btn active-senin";
+        } else if (day === 'rabu') {
+            weekly.style.display = 'none';
+            statsPanel.style.display = 'flex';
+            chartPanel.style.display = 'none';
+            senin.style.display = 'none';
+            rabu.style.display = 'block';
+            jumat.style.display = 'none';
+            btnRabu.className = "nav-btn active-rabu";
+        } else if (day === 'jumat') {
+            weekly.style.display = 'none';
+            statsPanel.style.display = 'flex';
+            chartPanel.style.display = 'none';
+            senin.style.display = 'none';
+            rabu.style.display = 'none';
+            jumat.style.display = 'block';
+            btnJumat.className = "nav-btn active-jumat";
+        } else {
+            weekly.style.display = 'block';
+            statsPanel.style.display = 'flex';
+            chartPanel.style.display = 'flex';
+            senin.style.display = 'block';
+            rabu.style.display = 'block';
+            jumat.style.display = 'block';
+            btnSemua.className, btnSemua.className = "nav-btn active-semua";
+        }
+        playBeep('click');
+    }
+</script>
+
+</body>
+</html>
