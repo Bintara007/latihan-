@@ -3,334 +3,598 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Gym</title>
+    <title>Jadwal Gym Pro</title>
     <link rel="icon" type="image/png" href="https://i.postimg.cc/BZdnXmfm/discipline.png">
     <link rel="apple-touch-icon" href="https://i.postimg.cc/BZdnXmfm/discipline.png">
     <style>
+        :root {
+            --bg-main: #020205;
+            --surface: rgba(18, 18, 28, 0.12);
+            --surface-hover: rgba(30, 30, 46, 0.22);
+            --border: rgba(255, 255, 255, 0.45);
+            --border-glow: rgba(239, 68, 68, 0.9);
+            --accent: #ef4444;
+            --accent-glow: rgba(239, 68, 68, 0.95);
+            --blue: #38bdf8;
+            --blue-glow: rgba(56, 189, 248, 0.95);
+            --green: #4ade80;
+            --green-glow: rgba(74, 222, 128, 0.95);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            --chip-bg: rgba(239, 68, 68, 0.15);
+            --chip-border: rgba(239, 68, 68, 0.4);
+            --chip-text: #fca5a5;
+        }
+
+        /* Tema 1: Merah (Classic Red Suit) */
+        body.theme-merah {
+            --bg-main: #0a0101;
+            --surface: rgba(25, 10, 10, 0.12);
+            --surface-hover: rgba(45, 18, 18, 0.22);
+            --accent: #ef4444;
+            --accent-glow: rgba(239, 68, 68, 0.95);
+            --border: rgba(239, 68, 68, 0.5);
+            --border-glow: rgba(239, 68, 68, 0.95);
+            --blue: #ef4444;
+            --blue-glow: rgba(239, 68, 68, 0.95);
+            --green: #f87171;
+            --green-glow: rgba(248, 113, 113, 0.95);
+            --chip-bg: rgba(239, 68, 68, 0.15);
+            --chip-border: rgba(239, 68, 68, 0.45);
+            --chip-text: #fca5a5;
+        }
+
+        /* Tema 2: Biru (Symbiote / Future Foundation) */
+        body.theme-biru {
+            --bg-main: #01040a;
+            --surface: rgba(10, 20, 35, 0.12);
+            --surface-hover: rgba(18, 35, 58, 0.22);
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.95);
+            --border: rgba(56, 189, 248, 0.5);
+            --border-glow: rgba(56, 189, 248, 0.95);
+            --blue: #38bdf8;
+            --blue-glow: rgba(56, 189, 248, 0.95);
+            --green: #7dd3fc;
+            --green-glow: rgba(125, 211, 252, 0.95);
+            --chip-bg: rgba(56, 189, 248, 0.15);
+            --chip-border: rgba(56, 189, 248, 0.45);
+            --chip-text: #7dd3fc;
+        }
+
+        /* Tema 3: Hitam (Stealth / Black Suit) */
+        body.theme-hitam {
+            --bg-main: #030304;
+            --surface: rgba(18, 18, 22, 0.12);
+            --surface-hover: rgba(30, 30, 40, 0.22);
+            --accent: #e2e8f0;
+            --accent-glow: rgba(226, 232, 240, 0.95);
+            --border: rgba(226, 232, 240, 0.5);
+            --border-glow: rgba(226, 232, 240, 0.95);
+            --blue: #cbd5e1;
+            --blue-glow: rgba(203, 213, 225, 0.95);
+            --green: #f8fafc;
+            --green-glow: rgba(248, 250, 252, 0.95);
+            --chip-bg: rgba(226, 232, 240, 0.12);
+            --chip-border: rgba(226, 232, 240, 0.35);
+            --chip-text: #f1f5f9;
+        }
+
+        /* Tema 4: Merah-Biru (Stark Suit / Dual Accent) */
+        body.theme-merah-biru {
+            --bg-main: #020208;
+            --surface: rgba(14, 14, 32, 0.12);
+            --surface-hover: rgba(26, 26, 56, 0.22);
+            --accent: #ef4444;
+            --accent-glow: rgba(239, 68, 68, 0.95);
+            --border: rgba(56, 189, 248, 0.5);
+            --border-glow: rgba(56, 189, 248, 0.95);
+            --blue: #38bdf8;
+            --blue-glow: rgba(56, 189, 248, 0.95);
+            --green: #38bdf8;
+            --green-glow: rgba(56, 189, 248, 0.95);
+            --chip-bg: rgba(56, 189, 248, 0.15);
+            --chip-border: rgba(56, 189, 248, 0.45);
+            --chip-text: #7dd3fc;
+        }
+
+        /* Tema 5: Full Hitam (Pure Dark / Absolute Black Suit) */
+        body.theme-full-hitam {
+            --bg-main: #000000;
+            --surface: rgba(10, 10, 10, 0.25);
+            --surface-hover: rgba(25, 25, 25, 0.35);
+            --accent: #71717a;
+            --accent-glow: rgba(113, 113, 122, 0.6);
+            --border: rgba(63, 63, 70, 0.6);
+            --border-glow: rgba(113, 113, 122, 0.8);
+            --blue: #52525b;
+            --blue-glow: rgba(82, 82, 91, 0.6);
+            --green: #a1a1aa;
+            --green-glow: rgba(161, 161, 170, 0.6);
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --chip-bg: rgba(39, 39, 42, 0.4);
+            --chip-border: rgba(82, 82, 91, 0.5);
+            --chip-text: #d4d4d8;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            font-weight: 700; /* Konsistensi tipografi tebal terinspirasi iOS */
         }
+
         body {
-            background-color: #121212;
-            color: #e0e0e0;
-            padding: 16px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 16px 14px;
+            padding-top: 86px;
+            padding-bottom: 36px;
+            background-image: 
+                radial-gradient(circle at 15% 15%, var(--accent-glow) 0%, transparent 55%),
+                radial-gradient(circle at 85% 85%, var(--blue-glow) 0%, transparent 55%),
+                radial-gradient(circle at 50% 50%, var(--bg-main) 0%, transparent 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease;
         }
+
+        body::before {
+            content: "🕷️";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28vw; 
+            color: rgba(255, 255, 255, 0.22); 
+            text-shadow: 0 0 60px var(--accent-glow), 0 0 120px var(--blue-glow); 
+            pointer-events: none;
+            z-index: -1;
+            transition: text-shadow 0.4s ease, color 0.4s ease;
+            animation: spiderPulseLogo 4s ease-in-out infinite;
+        }
+
+        @keyframes spiderPulseLogo {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.18; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.28; }
+        }
+
         .container {
             max-width: 480px;
             margin: 0 auto;
-        }
-        .weekly-summary {
-            background-color: #1a1a1a;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-            border: 1px solid #333;
-        }
-        .weekly-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #ff9800;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .weekly-item {
             display: flex;
-            align-items: center;
-            padding: 6px 0;
-            border-bottom: 1px solid #282828;
-            font-size: 0.75rem;
-            color: #b0bec5;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .weekly-item:last-child {
-            border-bottom: none;
-        }
-        .weekly-item.checked {
-            opacity: 0.4;
-            text-decoration: line-through;
-        }
-        .weekly-item input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: #ff9800;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
+            flex-direction: column;
+            gap: 16px; /* Keseragaman jarak vertikal antar elemen utama (Simetri layout) */
         }
 
-        /* TAMPILAN TOMBOL NAVIGASI */
+        .top-container {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            padding: 0 14px;
+            z-index: 1000;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .liquid-glass {
+            background: var(--surface);
+            backdrop-filter: blur(40px) saturate(260%);
+            -webkit-backdrop-filter: blur(40px) saturate(260%);
+            border: 1.5px solid var(--border);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.85);
+            border-left: 1.5px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 20px 45px rgba(0, 0, 0, 0.35), 
+                inset 0 2px 5px rgba(255, 255, 255, 0.7), 
+                inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .liquid-glass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.45), 
+                transparent
+            );
+            transform: skewX(-20deg);
+            animation: liquidShimmer 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes liquidShimmer {
+            0% { left: -150%; }
+            30% { left: 150%; }
+            100% { left: 150%; }
+        }
+
         .nav-buttons {
             display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 4px;
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 6px;
+            border-radius: 24px;
+            pointer-events: auto;
+            composes: liquid-glass;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.7), 0 0 30px var(--accent-glow);
         }
+
         .nav-btn {
             flex: 1;
-            padding: 10px 4px;
+            padding: 9px 4px;
             border: none;
-            border-radius: 8px;
-            background-color: #2a2a2a;
-            color: #888;
-            font-size: 0.75rem;
-            font-weight: 700;
+            border-radius: 18px;
+            background-color: transparent;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 800;
             cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.2s;
-        }
-        .nav-btn.active-senin {
-            background-color: #ff9800;
-            color: #121212;
-        }
-        .nav-btn.active-rabu {
-            background-color: #2196f3;
-            color: #ffffff;
-        }
-        .nav-btn.active-jumat {
-            background-color: #4caf50;
-            color: #121212;
-        }
-        .nav-btn.active-semua {
-            background-color: #e0e0e0;
-            color: #121212;
-        }
-
-        .day-section {
-            background-color: #1e1e1e;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            border-left: 4px solid #ff9800;
-        }
-        .day-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #ff9800;
-            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 2;
         }
-        .exercise-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #2c2c2c;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: opacity 0.2s;
+
+        .nav-btn:active {
+            transform: scale(0.92);
         }
-        .exercise-item:last-child {
-            border-bottom: none;
+
+        .nav-btn.active-semua {
+            background: rgba(255, 255, 255, 0.45);
+            color: var(--text-main);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.85);
+            animation: btnPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .exercise-item.checked {
-            opacity: 0.4;
-            text-decoration: line-through;
-        }
-        .exercise-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        .muscle {
-            font-weight: 600;
-            color: #90caf9;
-            flex: 0 0 35%;
-        }
-        .name {
-            flex: 0 0 45%;
+
+        .nav-btn.active-senin {
+            background: linear-gradient(135deg, var(--accent), var(--bg-main));
             color: #ffffff;
+            box-shadow: 0 6px 22px var(--accent-glow), inset 0 2px 4px rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.85);
+            animation: btnPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .reps {
-            flex: 0 0 20%;
-            text-align: right;
-            color: #a5d6a7;
-            font-weight: 500;
+
+        .nav-btn.active-rabu {
+            background: linear-gradient(135deg, var(--blue), var(--bg-main));
+            color: #ffffff;
+            box-shadow: 0 6px 22px var(--blue-glow), inset 0 2px 4px rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.85);
+            animation: btnPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .exercise-item input[type="checkbox"] {
-            margin-right: 8px;
-            accent-color: #ff9800;
-            width: 15px;
-            height: 15px;
+
+        .nav-btn.active-jumat {
+            background: linear-gradient(135deg, var(--green), var(--bg-main));
+            color: #ffffff;
+            box-shadow: 0 6px 22px var(--green-glow), inset 0 2px 4px rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.85);
+            animation: btnPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes btnPop {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+
+        /* Rest Timer Bar */
+        .rest-timer-bar {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 22px;
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: auto;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px) scale(0.9);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            composes: liquid-glass;
+            border: 1.5px solid var(--accent-glow);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-glow), inset 0 2px 4px rgba(255, 255, 255, 0.7);
+        }
+
+        .rest-timer-bar.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            height: 52px;
+            margin-top: 4px;
+        }
+
+        .rest-timer-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .rest-timer-info {
+            font-size: 0.58rem;
+            color: var(--accent);
+            font-weight: 900;
+            letter-spacing: 0.6px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .rest-timer-countdown {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 900;
+            font-family: monospace;
+            letter-spacing: 0.6px;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+        }
+
+        .timer-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        .timer-ctrl-btn {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            color: var(--text-main);
+            width: 26px;
+            height: 26px;
+            border-radius: 9px;
+            font-size: 0.7rem;
+            font-weight: 900;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
         }
-    </style>
-</head>
-<body>
 
-<div class="container">
-
-    <!-- RINGKASAN MINGGUAN -->
-    <div class="weekly-summary">
-        <div class="weekly-title">Ringkasan Mingguan</div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_senin')"><input type="checkbox" id="w_senin"><span><strong>Senin:</strong> Full Body - Fokus Utama: Dada Maksimal & Push</span></div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_selasa')"><input type="checkbox" id="w_selasa"><span><strong>Selasa:</strong> Makan Surplus Kalori & Istirahat Total</span></div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_rabu')"><input type="checkbox" id="w_rabu"><span><strong>Rabu:</strong> Full Body - Fokus Utama: Punggung Maksimal & Pull</span></div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_kamis')"><input type="checkbox" id="w_kamis"><span><strong>Kamis:</strong> Makan Surplus Kalori & Istirahat Total</span></div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_jumat')"><input type="checkbox" id="w_jumat"><span><strong>Jumat:</strong> Full Body - Fokus Utama: Kaki & Lower Body Maksimal</span></div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_sabtu')"><input type="checkbox" id="w_sabtu"><span><strong>Sabtu:</strong> Makan Surplus Kalori & Istirahat Total</span></div>
-        <div class="weekly-item" onclick="toggleItem(event, this, 'w_minggu')"><input type="checkbox" id="w_minggu"><span><strong>Minggu:</strong> Gym Tutup / Pemulihan Total</span></div>
-    </div>
-
-    <!-- TOMBOL NAVIGASI HARI -->
-    <div class="nav-buttons">
-        <button class="nav-btn active-semua" id="btn-semua" onclick="showDay('semua')">Semua</button>
-        <button class="nav-btn" id="btn-senin" onclick="showDay('senin')">Senin</button>
-        <button class="nav-btn" id="btn-rabu" onclick="showDay('rabu')">Rabu</button>
-        <button class="nav-btn" id="btn-jumat" onclick="showDay('jumat')">Jumat</button>
-    </div>
-
-    <!-- SENIN -->
-    <div class="day-section" id="section-senin">
-        <div class="day-title">Senin (Fokus: Dada)</div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's1')"><input type="checkbox" id="s1"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Dumbbell Bench Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's2')"><input type="checkbox" id="s2"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Incline Dumbbell Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's3')"><input type="checkbox" id="s3"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Machine Chest Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's4')"><input type="checkbox" id="s4"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Cable Crossover / Fly</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's5')"><input type="checkbox" id="s5"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Lat Pulldown</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's6')"><input type="checkbox" id="s6"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Seated Cable Row</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's7')"><input type="checkbox" id="s7"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Goblet Squat</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's8')"><input type="checkbox" id="s8"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Extension</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's9')"><input type="checkbox" id="s9"><div class="exercise-content"><span class="muscle">Bahu Samping</span><span class="name">Dumbbell Lateral Raise</span><span class="reps">12-15 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 's10')"><input type="checkbox" id="s10"><div class="exercise-content"><span class="muscle">Core</span><span class="name">Plank</span><span class="reps">45-60 Detik</span></div></div>
-    </div>
-
-    <!-- RABU -->
-    <div class="day-section" id="section-rabu" style="border-left-color: #2196f3;">
-        <div class="day-title" style="color: #2196f3;">Rabu (Fokus: Punggung)</div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r1')"><input type="checkbox" id="r1"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Lat Pulldown</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r2')"><input type="checkbox" id="r2"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Seated Cable Row</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r3')"><input type="checkbox" id="r3"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Single-Arm DB Row</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r4')"><input type="checkbox" id="r4"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Straight-Arm Pulldown</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r5')"><input type="checkbox" id="r5"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Dumbbell Bench Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r6')"><input type="checkbox" id="r6"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Incline Dumbbell Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r7')"><input type="checkbox" id="r7"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r8')"><input type="checkbox" id="r8"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Curl</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r9')"><input type="checkbox" id="r9"><div class="exercise-content"><span class="muscle">Bahu Belakang</span><span class="name">Face Pull</span><span class="reps">12-15 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'r10')"><input type="checkbox" id="r10"><div class="exercise-content"><span class="muscle">Core</span><span class="name">Russian Twist</span><span class="reps">12-15 Rep</span></div></div>
-    </div>
-
-    <!-- JUMAT -->
-    <div class="day-section" id="section-jumat" style="border-left-color: #4caf50;">
-        <div class="day-title" style="color: #4caf50;">Jumat (Fokus: Kaki)</div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j1')"><input type="checkbox" id="j1"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Goblet / Barbell Squat</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j2')"><input type="checkbox" id="j2"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j3')"><input type="checkbox" id="j3"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Extension</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j4')"><input type="checkbox" id="j4"><div class="exercise-content"><span class="muscle">Kaki</span><span class="name">Leg Curl</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j5')"><input type="checkbox" id="j5"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Dumbbell Bench Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j6')"><input type="checkbox" id="j6"><div class="exercise-content"><span class="muscle">Dada</span><span class="name">Machine Chest Press</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j7')"><input type="checkbox" id="j7"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Lat Pulldown</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j8')"><input type="checkbox" id="j8"><div class="exercise-content"><span class="muscle">Punggung</span><span class="name">Seated Cable Row</span><span class="reps">8-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j9')"><input type="checkbox" id="j9"><div class="exercise-content"><span class="muscle">Lengan</span><span class="name">Bicep Curl & Tricep Ext</span><span class="reps">10-12 Rep</span></div></div>
-        <div class="exercise-item" onclick="toggleItem(event, this, 'j10')"><input type="checkbox" id="j10"><div class="exercise-content"><span class="muscle">Core</span><span class="name">Leg Raise / Knee Raise</span><span class="reps">12-15 Rep</span></div></div>
-    </div>
-
-</div>
-
-<script>
-    // 1. Logika Reset Otomatis Setiap Minggu
-    function checkReset() {
-        const now = new Date();
-        const year = now.getFullYear();
-        // Menghitung nomor minggu dalam setahun menggunakan ISO week standard
-        const startOfYear = new Date(year, 0, 1);
-        const days = Math.floor((now - startOfYear) / (24 * 60 * 60 * 1000));
-        const currentWeek = Math.ceil((days + startOfYear.getDay() + 1) / 7);
-        const currentYearWeek = `${year}-W${currentWeek}`;
-
-        const lastWeek = localStorage.getItem('lastWeekReset');
-        
-        if (lastWeek !== currentYearWeek) {
-            // Hanya hapus kunci tugas (bukan data sistem), atau reset seluruh item checkbox
-            document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
-                const checkbox = el.querySelector('input[type="checkbox"]');
-                if (checkbox) {
-                    localStorage.removeItem(checkbox.id);
-                }
-            });
-            localStorage.setItem('lastWeekReset', currentYearWeek);
+        .timer-ctrl-btn:active {
+            transform: scale(0.85);
+            background: rgba(255, 255, 255, 0.6);
         }
-    }
 
-    // 2. Logika Toggle & Simpan ke Browser
-    function toggleItem(event, el, id) {
-        const checkbox = el.querySelector('input[type="checkbox"]');
-        
-        // Jika yang diklik adalah teksnya (bukan langsung kotak centang), ubah status checkbox
-        if (event.target !== checkbox) {
-            checkbox.checked = !checkbox.checked;
+        .rest-timer-btn {
+            background: linear-gradient(135deg, var(--accent), var(--bg-main));
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 12px var(--accent-glow), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        
-        if (checkbox.checked) {
-            el.classList.add('checked');
-        } else {
-            el.classList.remove('checked');
+
+        .rest-timer-btn:active {
+            transform: scale(0.85);
         }
-        localStorage.setItem(id, checkbox.checked);
-    }
 
-    // 3. Muat Status Ceklis Saat Halaman Dibuka
-    window.onload = () => {
-        checkReset();
-        document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
-            const checkbox = el.querySelector('input[type="checkbox"]');
-            if (checkbox) {
-                const id = checkbox.id;
-                const saved = localStorage.getItem(id) === 'true';
-                checkbox.checked = saved;
-                if (saved) {
-                    el.classList.add('checked');
-                } else {
-                    el.classList.remove('checked');
-                }
-            }
-        });
-    };
-
-    // 4. Navigasi Antar Hari
-    function showDay(day) {
-        const senin = document.getElementById('section-senin');
-        const rabu = document.getElementById('section-rabu');
-        const jumat = document.getElementById('section-jumat');
-
-        const btnSemua = document.getElementById('btn-semua');
-        const btnSenin = document.getElementById('btn-senin');
-        const btnRabu = document.getElementById('btn-rabu');
-        const btnJumat = document.getElementById('btn-jumat');
-
-        btnSemua.className = "nav-btn";
-        btnSenin.className = "nav-btn";
-        btnRabu.className = "nav-btn";
-        btnJumat.className = "nav-btn";
-
-        if (day === 'senin') {
-            senin.style.display = 'block';
-            rabu.style.display = 'none';
-            jumat.style.display = 'none';
-            btnSenin.className = "nav-btn active-senin";
-        } else if (day === 'rabu') {
-            senin.style.display = 'none';
-            rabu.style.display = 'block';
-            jumat.style.display = 'none';
-            btnRabu.className = "nav-btn active-rabu";
-        } else if (day === 'jumat') {
-            senin.style.display = 'none';
-            rabu.style.display = 'none';
-            jumat.style.display = 'block';
-            btnJumat.className = "nav-btn active-jumat";
-        } else {
-            senin.style.display = 'block';
-            rabu.style.display = 'block';
-            jumat.style.display = 'block';
-            btnSemua.className = "nav-btn active-semua";
+        /* --- MEDIA PLAYER MUSIK ESTETIK --- */
+        .music-panel {
+            border-radius: 24px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            composes: liquid-glass;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.6);
         }
-    }
-</script>
 
-</body>
-                                                                                                                                                                            </html>
-                                                                                                                                                                            
+        .music-main-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            z-index: 2;
+        }
+
+        .music-track-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .music-vinyl-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--bg-main));
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px var(--accent-glow);
+            transition: transform 0.4s ease;
+        }
+
+        .music-vinyl-icon.spinning {
+            animation: vinylSpin 3s linear infinite;
+        }
+
+        @keyframes vinylSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-text-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
+
+        .music-title-display {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .music-subtitle-status {
+            font-size: 0.58rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 0.4px;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Mini Visualizer */
+        .music-visualizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .music-bar {
+            width: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            height: 4px;
+            transition: height 0.2s ease;
+        }
+
+        .playing .music-bar:nth-child(1) { animation: soundBar 0.6s ease-in-out infinite alternate; }
+        .playing .music-bar:nth-child(2) { animation: soundBar 0.4s ease-in-out infinite alternate; }
+        .playing .music-bar:nth-child(3) { animation: soundBar 0.7s ease-in-out infinite alternate; }
+
+        @keyframes soundBar {
+            0% { height: 4px; }
+            100% { height: 14px; }
+        }
+
+        /* Progress Bar Musik */
+        .music-progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .music-time-label {
+            font-size: 0.58rem;
+            font-family: monospace;
+            font-weight: 800;
+            color: var(--text-muted);
+            width: 34px;
+            text-align: center;
+        }
+
+        .music-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .music-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .music-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+
+        /* Tombol Kontrol Bawah Player */
+        .music-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+            padding-top: 10px;
+            z-index: 2;
+        }
+
+        .music-btn-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .music-btn {
+            background: var(--chip-bg);
+            border: 1.5px solid var(--chip-border);
+            color: var(--chip-text);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            transition: all 0.25s ease;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .music-btn:active {
+            transform: scale(0.9);
+        }
+
+        .music-btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--bg-main));
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            padding: 6px 16px;
+            box-shadow: 0 4px 12px var(--accent-glow
