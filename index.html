@@ -124,7 +124,7 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            font-weight: 700; /* Konsistensi tipografi tebal terinspirasi iOS */
+            font-weight: 700;
         }
 
         body {
@@ -168,7 +168,7 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 16px; /* Keseragaman jarak vertikal antar elemen utama (Simetri layout) */
+            gap: 16px;
         }
 
         .top-container {
@@ -896,7 +896,7 @@
             z-index: 2;
         }
 
-        /* Kartu Utama & Konten Bagian - Dibuat Simetris dan Rapi */
+        /* Kartu Utama & Konten Bagian */
         .weekly-summary, .day-section {
             border-radius: 28px;
             padding: 20px 18px;
@@ -906,7 +906,7 @@
             animation: cardSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             display: flex;
             flex-direction: column;
-            gap: 10px; /* Jarak antar item di dalam card seragam */
+            gap: 10px;
         }
 
         @keyframes cardSlideUp {
@@ -920,16 +920,22 @@
             transform: translateY(-2px);
         }
 
+        .weekly-title-row, .day-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+            padding-left: 4px;
+            z-index: 2;
+            position: relative;
+        }
+
         .weekly-title, .day-title {
             font-size: 0.72rem;
             font-weight: 900;
             color: var(--text-muted);
-            margin-bottom: 2px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding-left: 4px;
-            z-index: 2;
-            position: relative;
         }
 
         .day-title {
@@ -948,6 +954,27 @@
             text-shadow: 0 0 15px var(--green-glow);
         }
 
+        .edit-section-btn, .add-exercise-btn {
+            background: var(--chip-bg);
+            border: 1.5px solid var(--chip-border);
+            color: var(--chip-text);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.55rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .edit-section-btn:hover, .add-exercise-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
         .weekly-item, .exercise-item {
             display: flex;
             align-items: center;
@@ -960,7 +987,7 @@
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             overflow: hidden;
-            margin: 0; /* Dikelola oleh gap parent card untuk simetri */
+            margin: 0;
         }
 
         .weekly-item {
@@ -1015,8 +1042,8 @@
         input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             border: 2px solid var(--text-muted);
             border-radius: 50%;
             margin-right: 12px;
@@ -1054,20 +1081,19 @@
             100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
         }
 
-        /* Grid kolom presisi untuk kesimetrisan visual mutlak */
         .exercise-content {
             display: grid;
-            grid-template-columns: 88px 1fr 110px;
+            grid-template-columns:  63px 1fr auto;
             align-items: center;
-            width: 100%;
-            gap: 10px;
-            z-index: 2;
+            width:  100%;
+            gap: 8px;
+            z-index: 1;
             position: relative;
         }
 
         .weekly-content {
             display: grid;
-            grid-template-columns: 88px 1fr;
+            grid-template-columns: 60px 1fr;
             align-items: center;
             width: 100%;
             gap: 10px;
@@ -1075,7 +1101,8 @@
             position: relative;
         }
 
-        .muscle {
+        /* Styling Dropdown Otot Berdasarkan Tema */
+        .muscle-select {
             background: var(--chip-bg);
             border: 1.5px solid var(--chip-border);
             color: var(--chip-text);
@@ -1086,11 +1113,23 @@
             text-transform: uppercase;
             letter-spacing: 0.3px;
             text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            outline: none;
+            cursor: pointer;
             box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .muscle-select option {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+        }
+
+        .muscle-select:hover, .muscle-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+            color: #fff;
         }
 
         .name {
@@ -1103,6 +1142,11 @@
             text-overflow: ellipsis;
             letter-spacing: 0.2px;
             transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        .name:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         .weekly-item:hover .name, .exercise-item:hover .name {
@@ -1137,6 +1181,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
             letter-spacing: 0.2px;
+            cursor: pointer;
+        }
+        .weekly-desc:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         .reps {
@@ -1161,6 +1210,30 @@
         .reps:hover {
             border-color: var(--accent);
             box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .delete-exercise-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.65rem;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 6px;
+            flex-shrink: 0;
+            z-index: 2;
+            transition: all 0.2s ease;
+        }
+        .delete-exercise-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
     </style>
 </head>
@@ -1187,7 +1260,6 @@
     </div>
 </div>
 
-<!-- Floating Toggle Tema Suit Spider-Man -->
 <div class="suit-toggle-float" id="suitToggleBtn" onclick="cycleTheme()" title="Ganti Tema Suit Spider-Man">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm0 384c-88.2 0-160-71.8-160-160S167.8 96 256 96s160 71.8 160 160-71.8 160-160 160zm-32-256c-35.3 0-64 28.7-64 64 0 25.4 14.8 47.3 36.2 57.8L160 352l32 16 32-64h64l32 64 32-16-36.2-34.2C329.2 303.3 344 281.4 344 256c0-35.3-28.7-64-64-64h-24z"/>
@@ -1196,7 +1268,6 @@
 
 <div class="container">
 
-    <!-- PANEL MEDIA PLAYER MUSIK ESTETIK -->
     <div class="music-panel" id="musicPanel">
         <div class="music-main-row">
             <div class="music-track-info">
@@ -1234,7 +1305,6 @@
         <audio id="bgmAudioElement" loop></audio>
     </div>
 
-    <!-- MODAL PLAYLIST INTERAKTIF -->
     <div class="playlist-modal-overlay" id="playlistModalOverlay" onclick="closePlaylistModal(event)">
         <div class="playlist-modal-card" onclick="event.stopPropagation()">
             <div class="playlist-modal-header">
@@ -1242,7 +1312,6 @@
                 <button class="playlist-close-btn" onclick="closePlaylistModal()">×</button>
             </div>
             <div class="playlist-items-container" id="playlistItemsContainer">
-                <!-- Daftar lagu akan dimasukkan secara dinamis via JavaScript -->
             </div>
         </div>
     </div>
@@ -1265,7 +1334,6 @@
         </div>
     </div>
 
-    <!-- Panel Grafik Progres Latihan Bulanan -->
     <div class="chart-panel" id="section-chart">
         <div class="chart-header">
             <span class="chart-title">📊 Grafik Progres Minggu Bulanan (%)</span>
@@ -1275,54 +1343,80 @@
     </div>
 
     <div class="weekly-summary" id="section-weekly">
-        <div class="weekly-title">Ringkasan Mingguan</div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_senin')"><input type="checkbox" id="w_senin"><div class="weekly-content"><span class="weekly-day">Senin</span><span class="weekly-desc">Upper Body</span></div></div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_selasa')"><input type="checkbox" id="w_selasa"><div class="weekly-content"><span class="weekly-day">Selasa</span><span class="weekly-desc">Rest</span></div></div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_rabu')"><input type="checkbox" id="w_rabu"><div class="weekly-content"><span class="weekly-day">Rabu</span><span class="weekly-desc">Lower Body & Core</span></div></div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_kamis')"><input type="checkbox" id="w_kamis"><div class="weekly-content"><span class="weekly-day">Kamis</span><span class="weekly-desc">Rest</span></div></div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_jumat')"><input type="checkbox" id="w_jumat"><div class="weekly-content"><span class="weekly-day">Jumat</span><span class="weekly-desc">Upper Body</span></div></div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_sabtu')"><input type="checkbox" id="w_sabtu"><div class="weekly-content"><span class="weekly-day">Sabtu</span><span class="weekly-desc">Rest</span></div></div>
-        <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_minggu')"><input type="checkbox" id="w_minggu"><div class="weekly-content"><span class="weekly-day">Minggu</span><span class="weekly-desc">Off</span></div></div>
+        <div class="weekly-title-row">
+            <div class="weekly-title">Ringkasan Mingguan</div>
+            <button class="edit-section-btn" onclick="addWeeklyDayPrompt()">+ Hari</button>
+        </div>
+        <div id="weeklyItemsContainer">
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_senin')"><input type="checkbox" id="w_senin"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_senin')">Senin</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_senin')">Upper Body</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_senin')">×</button></div>
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_selasa')"><input type="checkbox" id="w_selasa"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_selasa')">Selasa</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_selasa')">Rest</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_selasa')">×</button></div>
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_rabu')"><input type="checkbox" id="w_rabu"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_rabu')">Rabu</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_rabu')">Lower Body & Core</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_rabu')">×</button></div>
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_kamis')"><input type="checkbox" id="w_kamis"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_kamis')">Kamis</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_kamis')">Rest</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_kamis')">×</button></div>
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_jumat')"><input type="checkbox" id="w_jumat"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_jumat')">Jumat</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_jumat')">Upper Body</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_jumat')">×</button></div>
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_sabtu')"><input type="checkbox" id="w_sabtu"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_sabtu')">Sabtu</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_sabtu')">Rest</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_sabtu')">×</button></div>
+            <div class="weekly-item" onclick="toggleWeeklyItem(event, this, 'w_minggu')"><input type="checkbox" id="w_minggu"><div class="weekly-content"><span class="weekly-day" onclick="editWeeklyDayName(event, this, 'w_minggu')">Minggu</span><span class="weekly-desc" onclick="editWeeklyDesc(event, this, 'w_minggu')">Off</span></div><button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, 'w_minggu')">×</button></div>
+        </div>
     </div>
 
-    <div class="day-section" id="section-senin">
-        <div class="day-title">Senin</div>
-        <div class="exercise-item"><input type="checkbox" id="s1" onclick="toggleItem(event, this, 's1', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Bench Press</span><span class="reps" id="rep_s1" onclick="editReps(event, 'rep_s1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s2" onclick="toggleItem(event, this, 's2', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Incline DB Press</span><span class="reps" id="rep_s2" onclick="editReps(event, 'rep_s2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s3" onclick="toggleItem(event, this, 's3', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Decline Press</span><span class="reps" id="rep_s3" onclick="editReps(event, 'rep_s3')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s4" onclick="toggleItem(event, this, 's4', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Dumbbell Fly</span><span class="reps" id="rep_s4" onclick="editReps(event, 'rep_s4')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s5" onclick="toggleItem(event, this, 's5', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Lat Pulldown</span><span class="reps" id="rep_s5" onclick="editReps(event, 'rep_s5')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s6" onclick="toggleItem(event, this, 's6', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Seated Cable Row</span><span class="reps" id="rep_s6" onclick="editReps(event, 'rep_s6')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s7" onclick="toggleItem(event, this, 's7', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">T-Bar / Row</span><span class="reps" id="rep_s7" onclick="editReps(event, 'rep_s7')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s8" onclick="toggleItem(event, this, 's8', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Side Delts</span><span class="name">Lateral Raise</span><span class="reps" id="rep_s8" onclick="editReps(event, 'rep_s8')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="s9" onclick="toggleItem(event, this, 's9', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Triceps</span><span class="name">Tricep Pushdown</span><span class="reps" id="rep_s9" onclick="editReps(event, 'rep_s9')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+    <div class="day-section" id="section-senin" data-day-key="senin">
+        <div class="day-title-row">
+            <div class="day-title" onclick="editSectionTitle('section-senin')">Senin</div>
+            <div style="display: flex; gap: 4px;">
+                <button class="add-exercise-btn" onclick="addNewExercise('section-senin')">+ Gerakan</button>
+            </div>
+        </div>
+        <div class="exercises-container" id="container-senin">
+            <div class="exercise-item"><input type="checkbox" id="s1" onclick="toggleItem(event, this, 's1')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s1" onchange="onMuscleChange('s1')" onclick="event.stopPropagation()"><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="besar">Back</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's1')">Bench Press</span><span class="reps" id="rep_s1" onclick="editReps(event, 'rep_s1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s2" onclick="toggleItem(event, this, 's2')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s2" onchange="onMuscleChange('s2')" onclick="event.stopPropagation()"><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="besar">Back</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's2')">Incline DB Press</span><span class="reps" id="rep_s2" onclick="editReps(event, 'rep_s2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s3" onclick="toggleItem(event, this, 's3')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s3" onchange="onMuscleChange('s3')" onclick="event.stopPropagation()"><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="besar">Back</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's3')">Decline Press</span><span class="reps" id="rep_s3" onclick="editReps(event, 'rep_s3')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s4" onclick="toggleItem(event, this, 's4')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s4" onchange="onMuscleChange('s4')" onclick="event.stopPropagation()"><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="besar">Back</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's4')">Dumbbell Fly</span><span class="reps" id="rep_s4" onclick="editReps(event, 'rep_s4')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s5" onclick="toggleItem(event, this, 's5')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s5" onchange="onMuscleChange('s5')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="kecil">Biceps</option><option value="besar">Chest</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's5')">Lat Pulldown</span><span class="reps" id="rep_s5" onclick="editReps(event, 'rep_s5')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s6" onclick="toggleItem(event, this, 's6')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s6" onchange="onMuscleChange('s6')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="kecil">Biceps</option><option value="besar">Chest</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's6')">Seated Cable Row</span><span class="reps" id="rep_s6" onclick="editReps(event, 'rep_s6')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s7" onclick="toggleItem(event, this, 's7')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s7" onchange="onMuscleChange('s7')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="kecil">Biceps</option><option value="besar">Chest</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's7')">T-Bar / Row</span><span class="reps" id="rep_s7" onclick="editReps(event, 'rep_s7')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s8" onclick="toggleItem(event, this, 's8')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s8" onchange="onMuscleChange('s8')" onclick="event.stopPropagation()"><option value="kecil" selected>Shoulders</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="besar">Back</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Triceps</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's8')">Lateral Raise</span><span class="reps" id="rep_s8" onclick="editReps(event, 'rep_s8')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="s9" onclick="toggleItem(event, this, 's9')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_s9" onchange="onMuscleChange('s9')" onclick="event.stopPropagation()"><option value="kecil" selected>Triceps</option><option value="kecil">Biceps</option><option value="besar">Chest</option><option value="besar">Back</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Shoulders</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 's9')">Tricep Pushdown</span><span class="reps" id="rep_s9" onclick="editReps(event, 'rep_s9')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+        </div>
     </div>
 
-    <div class="day-section" id="section-rabu">
-        <div class="day-title">Rabu</div>
-        <div class="exercise-item"><input type="checkbox" id="r1" onclick="toggleItem(event, this, 'r1', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Quads</span><span class="name">Squat / Press</span><span class="reps" id="rep_r1" onclick="editReps(event, 'rep_r1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r2" onclick="toggleItem(event, this, 'r2', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Hamstrings</span><span class="name">Romanian Deadlift</span><span class="reps" id="rep_r2" onclick="editReps(event, 'rep_r2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r3" onclick="toggleItem(event, this, 'r3', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Quads</span><span class="name">Leg Extension</span><span class="reps" id="rep_r3" onclick="editReps(event, 'rep_r3')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r4" onclick="toggleItem(event, this, 'r4', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Hamstrings</span><span class="name">Leg Curl</span><span class="reps" id="rep_r4" onclick="editReps(event, 'rep_r4')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r5" onclick="toggleItem(event, this, 'r5', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Calves</span><span class="name">Calf Raise</span><span class="reps" id="rep_r5" onclick="editReps(event, 'rep_r5')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r6" onclick="toggleItem(event, this, 'r6', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Lower Core</span><span class="name">Hanging Leg Raise</span><span class="reps" id="rep_r6" onclick="editReps(event, 'rep_r6')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r7" onclick="toggleItem(event, this, 'r7', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Mid Core</span><span class="name">Cable Crunch</span><span class="reps" id="rep_r7" onclick="editReps(event, 'rep_r7')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r8" onclick="toggleItem(event, this, 'r8', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Obliques</span><span class="name">Russian Twist</span><span class="reps" id="rep_r8" onclick="editReps(event, 'rep_r8')" title="Klik ganti target reps">2 Set x 15-20 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="r9" onclick="toggleItem(event, this, 'r9', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Stability</span><span class="name">Plank</span><span class="reps" id="rep_r9" onclick="editReps(event, 'rep_r9')" title="Klik ganti target reps">2 Set x 45-60 Det</span></div></div>
+    <div class="day-section" id="section-rabu" data-day-key="rabu">
+        <div class="day-title-row">
+            <div class="day-title" onclick="editSectionTitle('section-rabu')">Rabu</div>
+            <div style="display: flex; gap: 4px;">
+                <button class="add-exercise-btn" onclick="addNewExercise('section-rabu')">+ Gerakan</button>
+            </div>
+        </div>
+        <div class="exercises-container" id="container-rabu">
+            <div class="exercise-item"><input type="checkbox" id="r1" onclick="toggleItem(event, this, 'r1')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r1" onchange="onMuscleChange('r1')" onclick="event.stopPropagation()"><option value="besar" selected>Quads</option><option value="besar">Hamstrings</option><option value="besar">Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 'r1')">Squat / Press</span><span class="reps" id="rep_r1" onclick="editReps(event, 'rep_r1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r2" onclick="toggleItem(event, this, 'r2')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r2" onchange="onMuscleChange('r2')" onclick="event.stopPropagation()"><option value="besar" selected>Hamstrings</option><option value="besar">Quads</option><option value="besar">Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 'r2')">Romanian Deadlift</span><span class="reps" id="rep_r2" onclick="editReps(event, 'rep_r2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r3" onclick="toggleItem(event, this, 'r3')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r3" onchange="onMuscleChange('r3')" onclick="event.stopPropagation()"><option value="kecil" selected>Quads</option><option value="besar">Hamstrings</option><option value="besar">Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 'r3')">Leg Extension</span><span class="reps" id="rep_r3" onclick="editReps(event, 'rep_r3')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r4" onclick="toggleItem(event, this, 'r4')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r4" onchange="onMuscleChange('r4')" onclick="event.stopPropagation()"><option value="kecil" selected>Hamstrings</option><option value="besar">Quads</option><option value="besar">Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option><option value="kecil">Calves</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 'r4')">Leg Curl</span><span class="reps" id="rep_r4" onclick="editReps(event, 'rep_r4')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r5" onclick="toggleItem(event, this, 'r5')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r5" onchange="onMuscleChange('r5')" onclick="event.stopPropagation()"><option value="kecil" selected>Calves</option><option value="besar">Quads</option><option value="besar">Hamstrings</option><option value="kecil">Core</option></select><span class="name" onclick="editName(event, this, 'r5')">Calf Raise</span><span class="reps" id="rep_r5" onclick="editReps(event, 'rep_r5')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r6" onclick="toggleItem(event, this, 'r6')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r6" onchange="onMuscleChange('r6')" onclick="event.stopPropagation()"><option value="kecil" selected>Core</option><option value="besar">Quads</option><option value="besar">Back</option><option value="kecil">Calves</option></select><span class="name" onclick="editName(event, this, 'r6')">Hanging Leg Raise</span><span class="reps" id="rep_r6" onclick="editReps(event, 'rep_r6')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r7" onclick="toggleItem(event, this, 'r7')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r7" onchange="onMuscleChange('r7')" onclick="event.stopPropagation()"><option value="kecil" selected>Core</option><option value="besar">Quads</option><option value="besar">Back</option><option value="kecil">Calves</option></select><span class="name" onclick="editName(event, this, 'r7')">Cable Crunch</span><span class="reps" id="rep_r7" onclick="editReps(event, 'rep_r7')" title="Klik ganti target reps">2 Set x 12-15 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r8" onclick="toggleItem(event, this, 'r8')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r8" onchange="onMuscleChange('r8')" onclick="event.stopPropagation()"><option value="kecil" selected>Core</option><option value="besar">Quads</option><option value="besar">Back</option><option value="kecil">Calves</option></select><span class="name" onclick="editName(event, this, 'r8')">Russian Twist</span><span class="reps" id="rep_r8" onclick="editReps(event, 'rep_r8')" title="Klik ganti target reps">2 Set x 15-20 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="r9" onclick="toggleItem(event, this, 'r9')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_r9" onchange="onMuscleChange('r9')" onclick="event.stopPropagation()"><option value="kecil" selected>Core</option><option value="besar">Quads</option><option value="besar">Back</option><option value="kecil">Calves</option></select><span class="name" onclick="editName(event, this, 'r9')">Plank</span><span class="reps" id="rep_r9" onclick="editReps(event, 'rep_r9')" title="Klik ganti target reps">2 Set x 45-60 Det</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+        </div>
     </div>
 
-    <div class="day-section" id="section-jumat">
-        <div class="day-title">Jumat</div>
-        <div class="exercise-item"><input type="checkbox" id="j1" onclick="toggleItem(event, this, 'j1', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Barbell Row / Pull</span><span class="reps" id="rep_j1" onclick="editReps(event, 'rep_j1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j2" onclick="toggleItem(event, this, 'j2', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Single-Arm Row</span><span class="reps" id="rep_j2" onclick="editReps(event, 'rep_j2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j3" onclick="toggleItem(event, this, 'j3', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Close-Grip Pulldown</span><span class="reps" id="rep_j3" onclick="editReps(event, 'rep_j3')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j4" onclick="toggleItem(event, this, 'j4', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Back</span><span class="name">Bent-Over Row</span><span class="reps" id="rep_j4" onclick="editReps(event, 'rep_j4')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j5" onclick="toggleItem(event, this, 'j5', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Flat DB Press</span><span class="reps" id="rep_j5" onclick="editReps(event, 'rep_j5')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j6" onclick="toggleItem(event, this, 'j6', 'besar')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Incline BB Press</span><span class="reps" id="rep_j6" onclick="editReps(event, 'rep_j6')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j7" onclick="toggleItem(event, this, 'j7', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Chest</span><span class="name">Cable Crossover</span><span class="reps" id="rep_j7" onclick="editReps(event, 'rep_j7')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j8" onclick="toggleItem(event, this, 'j8', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Front Delts</span><span class="name">Overhead Press</span><span class="reps" id="rep_j8" onclick="editReps(event, 'rep_j8')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j9" onclick="toggleItem(event, this, 'j9', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Rear Delts</span><span class="name">Face Pull</span><span class="reps" id="rep_j9" onclick="editReps(event, 'rep_j9')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div></div>
-        <div class="exercise-item"><input type="checkbox" id="j10" onclick="toggleItem(event, this, 'j10', 'kecil')"><div class="exercise-content" onclick="focusCheckbox(this)"><span class="muscle">Biceps</span><span class="name">Barbell / EZ Curl</span><span class="reps" id="rep_j10" onclick="editReps(event, 'rep_j10')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div></div>
+    <div class="day-section" id="section-jumat" data-day-key="jumat">
+        <div class="day-title-row">
+            <div class="day-title" onclick="editSectionTitle('section-jumat')">Jumat</div>
+            <div style="display: flex; gap: 4px;">
+                <button class="add-exercise-btn" onclick="addNewExercise('section-jumat')">+ Gerakan</button>
+            </div>
+        </div>
+        <div class="exercises-container" id="container-jumat">
+            <div class="exercise-item"><input type="checkbox" id="j1" onclick="toggleItem(event, this, 'j1')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j1" onchange="onMuscleChange('j1')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j1')">Barbell Row / Pull</span><span class="reps" id="rep_j1" onclick="editReps(event, 'rep_j1')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j2" onclick="toggleItem(event, this, 'j2')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j2" onchange="onMuscleChange('j2')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j2')">Single-Arm Row</span><span class="reps" id="rep_j2" onclick="editReps(event, 'rep_j2')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j3" onclick="toggleItem(event, this, 'j3')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j3" onchange="onMuscleChange('j3')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j3')">Close-Grip Pulldown</span><span class="reps" id="rep_j3" onclick="editReps(event, 'rep_j3')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j4" onclick="toggleItem(event, this, 'j4')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j4" onchange="onMuscleChange('j4')" onclick="event.stopPropagation()"><option value="besar" selected>Back</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j4')">Bent-Over Row</span><span class="reps" id="rep_j4" onclick="editReps(event, 'rep_j4')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j5" onclick="toggleItem(event, this, 'j5')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j5" onchange="onMuscleChange('j5')" onclick="event.stopPropagation()"><option value="besar" selected>Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j5')">Flat DB Press</span><span class="reps" id="rep_j5" onclick="editReps(event, 'rep_j5')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j6" onclick="toggleItem(event, this, 'j6')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j6" onchange="onMuscleChange('j6')" onclick="event.stopPropagation()"><option value="besar" selected>Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j6')">Incline BB Press</span><span class="reps" id="rep_j6" onclick="editReps(event, 'rep_j6')" title="Klik ganti target reps">2 Set x 6-8 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j7" onclick="toggleItem(event, this, 'j7')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j7" onchange="onMuscleChange('j7')" onclick="event.stopPropagation()"><option value="kecil" selected>Chest</option><option value="besar">Back</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j7')">Cable Crossover</span><span class="reps" id="rep_j7" onclick="editReps(event, 'rep_j7')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j8" onclick="toggleItem(event, this, 'j8')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j8" onchange="onMuscleChange('j8')" onclick="event.stopPropagation()"><option value="kecil" selected>Shoulders</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j8')">Overhead Press</span><span class="reps" id="rep_j8" onclick="editReps(event, 'rep_j8')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j9" onclick="toggleItem(event, this, 'j9')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j9" onchange="onMuscleChange('j9')" onclick="event.stopPropagation()"><option value="kecil" selected>Shoulders</option><option value="besar">Chest</option><option value="kecil">Biceps</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j9')">Face Pull</span><span class="reps" id="rep_j9" onclick="editReps(event, 'rep_j9')" title="Klik ganti target reps">2 Set x 10-12 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+            <div class="exercise-item"><input type="checkbox" id="j10" onclick="toggleItem(event, this, 'j10')"><div class="exercise-content" onclick="focusCheckbox(this)"><select class="muscle-select" id="muscle_j10" onchange="onMuscleChange('j10')" onclick="event.stopPropagation()"><option value="kecil" selected>Biceps</option><option value="besar">Chest</option><option value="besar">Back</option><option value="kecil">Triceps</option></select><span class="name" onclick="editName(event, this, 'j10')">Barbell / EZ Curl</span><span class="reps" id="rep_j10" onclick="editReps(event, 'rep_j10')" title="Klik ganti target reps">2 Set x 8-10 Rep</span></div><button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button></div>
+        </div>
     </div>
 
 </div>
@@ -1339,7 +1433,6 @@
     let workoutTimerInterval = null;
     let isWorkoutActive = false;
 
-    // --- INISIALISASI INDEXEDDB UNTUK AUDIO ---
     const DB_NAME = 'GymProAudioDB';
     const DB_VERSION = 1;
     const STORE_NAME = 'audios';
@@ -1352,10 +1445,7 @@
                 return;
             }
             const request = indexedDB.open(DB_NAME, DB_VERSION);
-            request.onerror = (event) => {
-                console.error("IndexedDB error:", event.target.error);
-                reject(event.target.error);
-            };
+            request.onerror = (event) => reject(event.target.error);
             request.onsuccess = (event) => {
                 db = event.target.result;
                 resolve(db);
@@ -1451,7 +1541,6 @@
         } catch (e) {}
     }
 
-    // --- LOGIKA MEDIA PLAYER MUSIK DENGAN INDEXEDDB ---
     const audioEl = document.getElementById('bgmAudioElement');
     
     audioEl.addEventListener('timeupdate', () => {
@@ -1634,18 +1723,16 @@
 
     function cycleTheme() {
         themes.forEach(t => document.body.classList.remove(t));
-        
         currentThemeIndex = (currentThemeIndex + 1) % themes.length;
         const newTheme = themes[currentThemeIndex];
-        
         document.body.classList.add(newTheme);
         localStorage.setItem('spiderSuitTheme', newTheme);
-        
         playBeep('click');
         if (navigator.vibrate) navigator.vibrate(30);
         drawProgressChart();
     }
 
+    // --- FITUR TAMBAH & EDIT JADWAL / GERAKAN ---
     function editReps(event, repId) {
         event.stopPropagation();
         const repEl = document.getElementById(repId);
@@ -1656,6 +1743,292 @@
             localStorage.setItem(repId, newText.trim());
             playBeep('click');
         }
+    }
+
+    function editName(event, nameEl, id) {
+        event.stopPropagation();
+        const currentText = nameEl.textContent;
+        const newText = prompt("Ubah nama gerakan latihan:", currentText);
+        if (newText !== null && newText.trim() !== "") {
+            nameEl.textContent = newText.trim();
+            localStorage.setItem('name_' + id, newText.trim());
+            playBeep('click');
+        }
+    }
+
+    function onMuscleChange(id) {
+        const selectEl = document.getElementById('muscle_' + id);
+        const selectedValue = selectEl.value; // 'besar' atau 'kecil'
+        localStorage.setItem('muscle_type_' + id, selectedValue);
+        localStorage.setItem('muscle_text_' + id, selectEl.options[selectEl.selectedIndex].text);
+        playBeep('click');
+    }
+
+    function editWeeklyDayName(event, dayEl, id) {
+        event.stopPropagation();
+        const currentText = dayEl.textContent;
+        const newText = prompt("Ubah nama hari ringkasan:", currentText);
+        if (newText !== null && newText.trim() !== "") {
+            dayEl.textContent = newText.trim();
+            localStorage.setItem('wday_' + id, newText.trim());
+            playBeep('click');
+        }
+    }
+
+    function editWeeklyDesc(event, descEl, id) {
+        event.stopPropagation();
+        const currentText = descEl.textContent;
+        const newText = prompt("Ubah deskripsi jadwal harian:", currentText);
+        if (newText !== null && newText.trim() !== "") {
+            descEl.textContent = newText.trim();
+            localStorage.setItem('wdesc_' + id, newText.trim());
+            playBeep('click');
+        }
+    }
+
+    function editSectionTitle(sectionId) {
+        const secEl = document.getElementById(sectionId);
+        const titleEl = secEl.querySelector('.day-title');
+        const currentText = titleEl.textContent;
+        const newText = prompt("Ubah nama sesi hari latihan:", currentText);
+        if (newText !== null && newText.trim() !== "") {
+            titleEl.textContent = newText.trim();
+            localStorage.setItem('sectitle_' + sectionId, newText.trim());
+            playBeep('click');
+        }
+    }
+
+    function addWeeklyDayPrompt() {
+        const dayName = prompt("Masukkan nama hari baru (misal: Kamis / Weekend):");
+        if (!dayName || dayName.trim() === "") return;
+        const descName = prompt("Masukkan deskripsi latihan (misal: Active Recovery / Rest):", "Rest");
+        if (descName === null) return;
+
+        const uniqueId = 'w_custom_' + Date.now();
+        const container = document.getElementById('weeklyItemsContainer');
+        
+        const item = document.createElement('div');
+        item.className = 'weekly-item';
+        item.onclick = (e) => toggleWeeklyItem(e, item, uniqueId);
+        
+        item.innerHTML = `
+            <input type="checkbox" id="${uniqueId}">
+            <div class="weekly-content">
+                <span class="weekly-day" onclick="editWeeklyDayName(event, this, '${uniqueId}')">${dayName.trim()}</span>
+                <span class="weekly-desc" onclick="editWeeklyDesc(event, this, '${uniqueId}')">${descName.trim()}</span>
+            </div>
+            <button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, '${uniqueId}')">×</button>
+        `;
+        
+        container.appendChild(item);
+        saveCustomWeeklyItems();
+        playBeep('click');
+    }
+
+    function deleteWeeklyItem(event, el, id) {
+        event.stopPropagation();
+        if (confirm("Hapus jadwal ringkasan ini?")) {
+            const parent = el.closest('.weekly-item');
+            parent.remove();
+            localStorage.removeItem(id);
+            localStorage.removeItem('wday_' + id);
+            localStorage.removeItem('wdesc_' + id);
+            saveCustomWeeklyItems();
+            updateProgress();
+            playBeep('click');
+        }
+    }
+
+    function saveCustomWeeklyItems() {
+        const items = document.querySelectorAll('#weeklyItemsContainer .weekly-item');
+        let data = [];
+        items.forEach(item => {
+            const cb = item.querySelector('input[type="checkbox"]');
+            const daySpan = item.querySelector('.weekly-day');
+            const descSpan = item.querySelector('.weekly-desc');
+            data.push({
+                id: cb.id,
+                day: daySpan.textContent,
+                desc: descSpan.textContent
+            });
+        });
+        localStorage.setItem('customWeeklyItems', JSON.stringify(data));
+    }
+
+    function addNewExercise(sectionId) {
+        const muscleName = prompt("Masukkan nama otot target (misal: Biceps, Triceps, Chest):", "Biceps");
+        if (!muscleName || muscleName.trim() === "") return;
+        
+        const isBig = confirm("Apakah ini kategori Otot Besar? (Klik OK untuk Otot Besar, Cancel untuk Otot Kecil)");
+        const muscleType = isBig ? 'besar' : 'kecil';
+
+        const name = prompt("Masukkan nama gerakan latihan:", "Nama Gerakan");
+        if (!name || name.trim() === "") return;
+        const reps = prompt("Masukkan target set & repetisi:", "2 Set x 8-10 Rep");
+        if (reps === null) return;
+
+        const container = document.getElementById('container-' + sectionId.replace('section-', ''));
+        const uniqueId = 'ex_' + Date.now();
+        const repId = 'rep_' + uniqueId;
+        const selectId = 'muscle_' + uniqueId;
+
+        const item = document.createElement('div');
+        item.className = 'exercise-item';
+        
+        item.innerHTML = `
+            <input type="checkbox" id="${uniqueId}" onclick="toggleItem(event, this, '${uniqueId}')">
+            <div class="exercise-content" onclick="focusCheckbox(this)">
+                <select class="muscle-select" id="${selectId}" onchange="onMuscleChange('${uniqueId}')" onclick="event.stopPropagation()">
+                    <option value="${muscleType}" selected>${muscleName.trim()}</option>
+                    <option value="besar">Chest</option>
+                    <option value="besar">Back</option>
+                    <option value="besar">Quads</option>
+                    <option value="besar">Hamstrings</option>
+                    <option value="kecil">Biceps</option>
+                    <option value="kecil">Triceps</option>
+                    <option value="kecil">Shoulders</option>
+                    <option value="kecil">Calves</option>
+                    <option value="kecil">Core</option>
+                </select>
+                <span class="name" onclick="editName(event, this, '${uniqueId}')">${name.trim()}</span>
+                <span class="reps" id="${repId}" onclick="editReps(event, '${repId}')" title="Klik ganti target reps">${reps.trim()}</span>
+            </div>
+            <button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button>
+        `;
+
+        container.appendChild(item);
+        saveCustomExercises(sectionId);
+        updateProgress();
+        playBeep('click');
+    }
+
+    function deleteExercise(event, btnEl) {
+        event.stopPropagation();
+        if (confirm("Hapus gerakan latihan ini?")) {
+            const item = btnEl.closest('.exercise-item');
+            const cb = item.querySelector('input[type="checkbox"]');
+            if (cb) {
+                localStorage.removeItem(cb.id);
+                localStorage.removeItem('rep_' + cb.id);
+                localStorage.removeItem('name_' + cb.id);
+                localStorage.removeItem('muscle_type_' + cb.id);
+                localStorage.removeItem('muscle_text_' + cb.id);
+            }
+            const section = item.closest('.day-section');
+            item.remove();
+            if (section) {
+                saveCustomExercises(section.id);
+            }
+            updateProgress();
+            playBeep('click');
+        }
+    }
+
+    function saveCustomExercises(sectionId) {
+        const container = document.getElementById('container-' + sectionId.replace('section-', ''));
+        if (!container) return;
+        const items = container.querySelectorAll('.exercise-item');
+        let data = [];
+        items.forEach(item => {
+            const cb = item.querySelector('input[type="checkbox"]');
+            const selectEl = item.querySelector('.muscle-select');
+            const name = item.querySelector('.name');
+            const reps = item.querySelector('.reps');
+            
+            data.push({
+                id: cb.id,
+                muscleText: selectEl.options[selectEl.selectedIndex].text,
+                muscleType: selectEl.value,
+                name: name.textContent,
+                reps: reps.textContent
+            });
+        });
+        localStorage.setItem('customExercises_' + sectionId, JSON.stringify(data));
+    }
+
+    function loadCustomData() {
+        const savedWeekly = localStorage.getItem('customWeeklyItems');
+        if (savedWeekly) {
+            try {
+                const data = JSON.parse(savedWeekly);
+                const container = document.getElementById('weeklyItemsContainer');
+                container.innerHTML = '';
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'weekly-item';
+                    div.onclick = (e) => toggleWeeklyItem(e, div, item.id);
+                    
+                    const isChecked = localStorage.getItem(item.id) === 'true';
+                    if (isChecked) div.classList.add('checked');
+
+                    div.innerHTML = `
+                        <input type="checkbox" id="${item.id}" ${isChecked ? 'checked' : ''}>
+                        <div class="weekly-content">
+                            <span class="weekly-day" onclick="editWeeklyDayName(event, this, '${item.id}')">${item.day}</span>
+                            <span class="weekly-desc" onclick="editWeeklyDesc(event, this, '${item.id}')">${item.desc}</span>
+                        </div>
+                        <button class="delete-exercise-btn" onclick="deleteWeeklyItem(event, this, '${item.id}')">×</button>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch(e) {}
+        }
+
+        ['section-senin', 'section-rabu', 'section-jumat'].forEach(secId => {
+            const savedTitle = localStorage.getItem('sectitle_' + secId);
+            if (savedTitle) {
+                const sec = document.getElementById(secId);
+                if (sec) {
+                    const titleEl = sec.querySelector('.day-title');
+                    if (titleEl) titleEl.textContent = savedTitle;
+                }
+            }
+        });
+
+        ['section-senin', 'section-rabu', 'section-jumat'].forEach(secId => {
+            const savedEx = localStorage.getItem('customExercises_' + secId);
+            if (savedEx) {
+                try {
+                    const data = JSON.parse(savedEx);
+                    const containerKey = 'container-' + secId.replace('section-', '');
+                    const container = document.getElementById(containerKey);
+                    if (container) {
+                        container.innerHTML = '';
+                        data.forEach(ex => {
+                            const isChecked = localStorage.getItem(ex.id) === 'true';
+                            const item = document.createElement('div');
+                            item.className = 'exercise-item';
+                            if (isChecked) item.classList.add('checked');
+
+                            const savedType = localStorage.getItem('muscle_type_' + ex.id) || ex.muscleType;
+                            const savedText = localStorage.getItem('muscle_text_' + ex.id) || ex.muscleText;
+
+                            item.innerHTML = `
+                                <input type="checkbox" id="${ex.id}" ${isChecked ? 'checked' : ''} onclick="toggleItem(event, this, '${ex.id}')">
+                                <div class="exercise-content" onclick="focusCheckbox(this)">
+                                    <select class="muscle-select" id="muscle_${ex.id}" onchange="onMuscleChange('${ex.id}')" onclick="event.stopPropagation()">
+                                        <option value="${savedType}" selected>${savedText}</option>
+                                        <option value="besar">Chest</option>
+                                        <option value="besar">Back</option>
+                                        <option value="besar">Quads</option>
+                                        <option value="besar">Hamstrings</option>
+                                        <option value="kecil">Biceps</option>
+                                        <option value="kecil">Triceps</option>
+                                        <option value="kecil">Shoulders</option>
+                                        <option value="kecil">Calves</option>
+                                        <option value="kecil">Core</option>
+                                    </select>
+                                    <span class="name" onclick="editName(event, this, '${ex.id}')">${ex.name}</span>
+                                    <span class="reps" id="rep_${ex.id}" onclick="editReps(event, 'rep_${ex.id}')" title="Klik ganti target reps">${ex.reps}</span>
+                                </div>
+                                <button class="delete-exercise-btn" onclick="deleteExercise(event, this)">×</button>
+                            `;
+                            container.appendChild(item);
+                        });
+                    }
+                } catch(e) {}
+            }
+        });
     }
 
     function startWorkoutTimer() {
@@ -1943,16 +2316,17 @@
         checkbox.dispatchEvent(new Event('change'));
         
         const id = checkbox.id;
-        const muscleType = (id.startsWith('s') && ['s1','s2','s3','s5','s6','s7'].includes(id)) || 
-                           (id.startsWith('r') && ['r1','r2'].includes(id)) || 
-                           (id.startsWith('j') && ['j1','j2','j3','j4','j5','j6'].includes(id)) ? 'besar' : 'kecil';
+        const selectEl = itemEl.querySelector('.muscle-select');
+        const muscleType = selectEl ? selectEl.value : 'kecil';
         
         handleCheckboxState(itemEl, checkbox, muscleType, id);
     }
 
-    function toggleItem(event, checkbox, id, muscleType) {
+    function toggleItem(event, checkbox, id) {
         event.stopPropagation();
         const itemEl = checkbox.closest('.exercise-item');
+        const selectEl = itemEl.querySelector('.muscle-select');
+        const muscleType = selectEl ? selectEl.value : 'kecil';
         handleCheckboxState(itemEl, checkbox, muscleType, id);
     }
 
@@ -1991,7 +2365,8 @@
             currentThemeIndex = themes.indexOf(savedTheme);
         }
 
-        // Inisialisasi IndexedDB dan muat audio terakhir yang diputar
+        loadCustomData();
+
         initDB().then(() => {
             const savedBgmName = localStorage.getItem('savedBgmName');
             if (savedBgmName) {
@@ -2001,47 +2376,7 @@
                     }
                 });
             }
-            updateSavedAudioListButton();
         });
-
-        document.querySelectorAll('.exercise-item, .weekly-item').forEach(el => {
-            const checkbox = el.querySelector('input[type="checkbox"]');
-            if (checkbox) {
-                const id = checkbox.id;
-                const saved = localStorage.getItem(id) === 'true';
-                checkbox.checked = saved;
-                if (saved) {
-                    el.classList.add('checked');
-                } else {
-                    el.classList.remove('checked');
-                }
-            }
-        });
-
-        document.querySelectorAll('.reps').forEach(repEl => {
-            const savedRep = localStorage.getItem(repEl.id);
-            if (savedRep !== null) {
-                repEl.textContent = savedRep;
-            }
-        });
-
-        const savedElapsedTime = localStorage.getItem('workoutElapsedTime');
-        if (savedElapsedTime && parseInt(savedElapsedTime) > 0) {
-            const totalSeconds = Math.floor(parseInt(savedElapsedTime) / 1000);
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            document.getElementById('workoutDuration').textContent = 
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            const estimatedCalories = Math.floor((totalSeconds / 60) * 7.5);
-            document.getElementById('workoutCalories').textContent = `${estimatedCalories} kcal`;
-            
-            const checkboxes = document.querySelectorAll('.exercise-item input[type="checkbox"]');
-            let hasChecked = Array.from(checkboxes).some(cb => cb.checked);
-            if (hasChecked) {
-                startWorkoutTimer();
-            }
-        }
 
         updateProgress();
         drawProgressChart();
@@ -2052,65 +2387,47 @@
     };
 
     function showDay(day) {
-        const weekly = document.getElementById('section-weekly');
-        const statsPanel = document.getElementById('section-stats');
-        const chartPanel = document.getElementById('section-chart');
-        const senin = document.getElementById('section-senin');
-        const rabu = document.getElementById('section-rabu');
-        const jumat = document.getElementById('section-jumat');
-
         const btnSemua = document.getElementById('btn-semua');
         const btnSenin = document.getElementById('btn-senin');
         const btnRabu = document.getElementById('btn-rabu');
         const btnJumat = document.getElementById('btn-jumat');
 
-        btnSemua.className = "nav-btn";
-        btnSenin.className = "nav-btn";
-        btnRabu.className = "nav-btn";
-        btnJumat.className = "nav-btn";
+        btnSemua.className = 'nav-btn';
+        btnSenin.className = 'nav-btn';
+        btnRabu.className = 'nav-btn';
+        btnJumat.className = 'nav-btn';
 
-        [weekly, statsPanel, chartPanel, senin, rabu, jumat].forEach(sec => {
-            sec.style.animation = 'none';
-            sec.offsetHeight;
-            sec.style.animation = 'cardSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-        });
+        const secWeekly = document.getElementById('section-weekly');
+        const secSenin = document.getElementById('section-senin');
+        const secRabu = document.getElementById('section-rabu');
+        const secJumat = document.getElementById('section-jumat');
 
-        if (day === 'senin') {
-            weekly.style.display = 'none';
-            statsPanel.style.display = 'flex';
-            chartPanel.style.display = 'none';
-            senin.style.display = 'block';
-            rabu.style.display = 'none';
-            jumat.style.display = 'none';
-            btnSenin.className = "nav-btn active-senin";
+        secWeekly.style.display = 'flex';
+        secSenin.style.display = 'flex';
+        secRabu.style.display = 'flex';
+        secJumat.style.display = 'flex';
+
+        if (day === 'semua') {
+            btnSemua.classList.add('active-semua');
+        } else if (day === 'senin') {
+            btnSenin.classList.add('active-senin');
+            secWeekly.style.display = 'none';
+            secRabu.style.display = 'none';
+            secJumat.style.display = 'none';
         } else if (day === 'rabu') {
-            weekly.style.display = 'none';
-            statsPanel.style.display = 'flex';
-            chartPanel.style.display = 'none';
-            senin.style.display = 'none';
-            rabu.style.display = 'block';
-            jumat.style.display = 'none';
-            btnRabu.className = "nav-btn active-rabu";
+            btnRabu.classList.add('active-rabu');
+            secWeekly.style.display = 'none';
+            secSenin.style.display = 'none';
+            secJumat.style.display = 'none';
         } else if (day === 'jumat') {
-            weekly.style.display = 'none';
-            statsPanel.style.display = 'flex';
-            chartPanel.style.display = 'none';
-            senin.style.display = 'none';
-            rabu.style.display = 'none';
-            jumat.style.display = 'block';
-            btnJumat.className = "nav-btn active-jumat";
-        } else {
-            weekly.style.display = 'block';
-            statsPanel.style.display = 'flex';
-            chartPanel.style.display = 'flex';
-            senin.style.display = 'block';
-            rabu.style.display = 'block';
-            jumat.style.display = 'block';
-            btnSemua.className, btnSemua.className = "nav-btn active-semua";
+            btnJumat.classList.add('active-jumat');
+            secWeekly.style.display = 'none';
+            secSenin.style.display = 'none';
+            secRabu.style.display = 'none';
         }
         playBeep('click');
+        if (navigator.vibrate) navigator.vibrate(30);
     }
 </script>
-
 </body>
 </html>
